@@ -1,2 +1,11 @@
 # Data sources
 
+The data for this project is sourced from the World Bank. The World Bank is a group dedicated to providing high-quality statistical data on numerous topics globally to aid development and policy making. A lot of the information within the World Bank’s databases come directly from the statistical systems of member countries, which means the accuracy of the information is heavily dependent on how well these national systems perform their data collection. As a result, a high priority of the World Bank is to help improve statistical infrastructures of developing countries by preparing national strategies for the development of statistics “as recommended in the Marrakech Action Plan for Statistics”. Data collection is currently a joint effort between the World Bank and many other international statistical communities including the United Nations (UN), the Organization for Economic Co-Operation and Development (OECD), the International Monetary Fund (IMF), and regional development banks. Transnational data is also collected by the World Bank through globally coordinated programs like the Marrakech Action Plan for Statistics and PARIS21.  
+
+For all the data collected, the World Bank ensures data consistency and reliability through: ***
+  -	Participation in the UN Statistical Commission and other statistical forums to develop      appropriate frameworks, guidance, and standards of good practice for statistics
+  -	Building consensus and defining internationally agreed indicators such as the indicators for the Millennium Development Goals
+  -	Establishing data exchange processes and methods
+  -	Assembling, analyzing, and disseminating data online and in print
+
+***Info comes from: https://data.worldbank.org/about
