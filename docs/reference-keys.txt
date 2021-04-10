@@ -3,6 +3,8 @@ data-sources
 data-transformation
 missing-values
 results
+social
+education
 employment
 interactive-component
 conclusion
