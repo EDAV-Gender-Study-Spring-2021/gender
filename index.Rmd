@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "Analyzing Gender Discrepancies Over Time Using Social, Educational, and Employment Trends"
+author: "Xiaoyan Li, Yaojia Ye, Vincent Chang"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
