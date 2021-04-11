@@ -8,3 +8,6 @@ education
 employment
 interactive-component
 conclusion
+social-rights
+education-1
+employment-1

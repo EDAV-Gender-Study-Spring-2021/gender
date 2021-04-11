@@ -73,11 +73,15 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a><ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#social-rights"><i class="fa fa-check"></i><b>4.1</b> Social Rights</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#education"><i class="fa fa-check"></i><b>4.2</b> Education</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#employment"><i class="fa fa-check"></i><b>4.3</b> Employment</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
 <li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#social"><i class="fa fa-check"></i><b>5.1</b> Social</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#education"><i class="fa fa-check"></i><b>5.2</b> Education</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#employment"><i class="fa fa-check"></i><b>5.3</b> Employment</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#education-1"><i class="fa fa-check"></i><b>5.2</b> Education</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#employment-1"><i class="fa fa-check"></i><b>5.3</b> Employment</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -102,7 +106,32 @@
             <section class="normal" id="section-">
 <div id="missing-values" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Missing values</h1>
+<div id="social-rights" class="section level2">
+<h2><span class="header-section-number">4.1</span> Social Rights</h2>
+<p>There is no missing data for the social rights aspect analysis.</p>
+</div>
+<div id="education" class="section level2">
+<h2><span class="header-section-number">4.2</span> Education</h2>
+</div>
+<div id="employment" class="section level2">
+<h2><span class="header-section-number">4.3</span> Employment</h2>
+<pre><code>## NOTE: In the following pairs of variables, the missingness pattern of the second is a subset of the first.
+##  Please verify whether they are in fact logically distinct variables.
+##       [,1]         [,2]        
+##  [1,] &quot;X2012 var3&quot; &quot;X2013 var3&quot;
+##  [2,] &quot;X2012 var3&quot; &quot;X2016 var3&quot;
+##  [3,] &quot;X2012 var3&quot; &quot;X2017 var3&quot;
+##  [4,] &quot;X2012 var3&quot; &quot;X2018 var3&quot;
+##  [5,] &quot;X2014 var3&quot; &quot;X2015 var3&quot;
+##  [6,] &quot;X2014 var3&quot; &quot;X2016 var3&quot;
+##  [7,] &quot;X2014 var3&quot; &quot;X2017 var3&quot;
+##  [8,] &quot;X2014 var3&quot; &quot;X2018 var3&quot;
+##  [9,] &quot;X2017 var3&quot; &quot;X2018 var3&quot;</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-5-1.png" width="1440" /></p>
+<pre><code>## NULL</code></pre>
+<p>For the data used to analyze employment trends, v1 signifies the employment to population ratio of females 15+, v2 signifies the employment to population ratio of males 15+, v3 signifies the proportion of females in upper/middle management, and v4 signifies the Women business and the law index scores. There are no missing values for v1, v2, and v4 as they are model ILO estimates, so some values are interpolated by the World Bank. Even though v3 has a ton of missing values, the proportion of females to males in upper/middle management relative to the proportion of females to males in the workforce appears to be a strong indicator for discrepancies in employment opportunities, so a decision was made to keep the feature for analysis. Out of the 30 countries selected, 12 countries had no information on the proportion of females in upper/middle management and they were excluded from the analysis that followed.</p>
 
+</div>
 </div>
             </section>
 
