@@ -207,6 +207,7 @@ Users can click the lightgreen button which represents the year range of the sta
 
 </script>
 
+
 The interactive plot above was built off a format provided by "Cars Scatter Plot" example from Vizhub (https://vizhub.com/curran/9247d4d42df74185980f7b1f7504dcc5).  
   
 
