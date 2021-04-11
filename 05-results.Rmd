@@ -116,6 +116,7 @@ parcoords(data_6,
 ```
 
 (The font size in the interactive parallel coordinates can not be changed. We tried to make the figure large so that it will be clearer.)
+
 Since we have more variations about the score in job, welfare, marriage and law aspects. We will only explore what potential factors influenced these variations.
 
 Also, since some countries’ GDP are extremely high, making other countries’ GDP hard to see in the parallel coordinates, We just used the log to scale the GDP, which will not influence the absolute rank of the GDP. 
