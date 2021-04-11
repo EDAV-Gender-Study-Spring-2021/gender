@@ -12,8 +12,7 @@ Asia: China, Japan, Korea, Malaysia, Thailand
 Africa: Rep. Congo, Niger, Nigeria, Tanzania, Zimbabwe  
 Oceania: Australia, Fiji, New Zealand, Papua New Guinea, Samoa  
   
-For social rights,  
-  
+For social rights, the dataset has a lot of questions related to the women social rights with binary labels attached. We basically divided the 24 rights related questions into 6 topics: 2 for Finance, 3 for Freedom, 8 for Law, 3 for Marriage, 4 for Job and 4 for Welfare. If the answer to the question is yes, then label 1. Otherwise, label 0. Therefore, we average the binary number in each topic and get the averaged score for each topic. Then the problem we discussed to analyze the social rights becomes to analyze the distribution of the scores for each countries. (The details are in the check_list.csv)
   
 For education,  
   
