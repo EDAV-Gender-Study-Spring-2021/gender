@@ -24,7 +24,7 @@
 <meta name="author" content="Vincent Chang, Xiaoyan Li, Yaojia Ye" />
 
 
-<meta name="date" content="2021-04-11" />
+<meta name="date" content="2021-04-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,6 @@
   
 <link rel="prev" href="data-sources.html"/>
 <link rel="next" href="missing-values.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +50,11 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/parallel-coordinates-2.1.8/parcoords.css" rel="stylesheet" />
+<script src="libs/parcoords-binding-1.0.0/parcoords.js"></script>
+<script src="libs/d3-5.16.0/d3.min.js"></script>
 
 
 
@@ -73,14 +77,12 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
-<ul>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a><ul>
 <li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#social-rights"><i class="fa fa-check"></i><b>4.1</b> Social Rights</a></li>
 <li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#education"><i class="fa fa-check"></i><b>4.2</b> Education</a></li>
 <li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#employment"><i class="fa fa-check"></i><b>4.3</b> Employment</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
-<ul>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
 <li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#social"><i class="fa fa-check"></i><b>5.1</b> Social</a></li>
 <li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#education-1"><i class="fa fa-check"></i><b>5.2</b> Education</a></li>
 <li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#employment-1"><i class="fa fa-check"></i><b>5.3</b> Employment</a></li>
@@ -106,7 +108,7 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-transformation" class="section level1" number="3">
+<div id="data-transformation" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
 <p>Data for this project is sourced from the following link: <a href="https://datacatalog.worldbank.org/dataset/gender-statistics" class="uri">https://datacatalog.worldbank.org/dataset/gender-statistics</a></p>
 <p>The CSV files were downloaded from the “Data &amp; Resources” tab and imported directly into RStudio for processing. The specific steps taken to process the data for visualization differed between the three topics studied for this project: social rights, education, and employment. Since there is information for over 200 regions, the project selected 30 to analyze their changes over time. Out of the 30 selected countries, 5 belonged to each continent. These countries were randomly selected.</p>

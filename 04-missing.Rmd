@@ -76,8 +76,8 @@ data_q3 <- data_q3 %>% mutate_if(is.factor, funs(case_when(
 
 ```{r}
 df <- data_q3 %>% 
-  select(Country.Name,Country.Code, Indicator.Code, c(40:64)) %>%
-  group_by(Country.Name, Country.Code, Indicator.Code)%>%
+  select(ï..Country.Name,Country.Code, Indicator.Code, c(40:64)) %>%
+  group_by(ï..Country.Name, Country.Code, Indicator.Code)%>%
   summarise_if(is.numeric, mean, na.rm = TRUE)
 ```
 
@@ -88,7 +88,7 @@ df$value <- value
 ```
 
 ```{r}
-df <- dcast(df, Country.Name + Country.Code ~ Indicator.Code)
+df <- dcast(df, ï..Country.Name + Country.Code ~ Indicator.Code)
 colnames(df)[colnames(df) == "Country.Code"] <- "Continent"
 ```
 

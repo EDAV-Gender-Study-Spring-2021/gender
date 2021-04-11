@@ -305,8 +305,8 @@ data_q3 <- data_q3 %>% mutate_if(is.factor, funs(case_when(
 
 ```{r}
 df <- data_q3 %>% 
-  select(Country.Name,Country.Code, Indicator.Code, c(40:64)) %>%
-  group_by(Country.Name, Country.Code, Indicator.Code)%>%
+  select(ï..Country.Name,Country.Code, Indicator.Code, c(40:64)) %>%
+  group_by(ï..Country.Name, Country.Code, Indicator.Code)%>%
   summarise_if(is.numeric, mean, na.rm = TRUE)
 ```
 
@@ -318,7 +318,7 @@ df$value <- value
 ```
 
 ```{r}
-df <- dcast(df, Country.Name + Country.Code ~ Indicator.Code)
+df <- dcast(df, ï..Country.Name + Country.Code ~ Indicator.Code)
 colnames(df)[colnames(df) == "Country.Code"] <- "Continent"
 ```
 
@@ -332,7 +332,7 @@ df[,3] <- log(df[,3]/1000000000)
 ```
 
 ```{r}
-dfj<-df[!(df$Country.Name=="Japan" | df$Country.Name == "Nigeria"),]
+dfj<-df[!(df$ï..Country.Name=="Japan" | df$ï..Country.Name == "Nigeria"),]
 ```
 
 
@@ -387,12 +387,14 @@ library(tidyr)
 
 #Load in data
 
-genderStatsCountry <- read.csv("data/Gender_StatsCountry.csv")
-genderStatsCountrySeries <- read.csv("data/Gender_StatsCountry-Series.csv")
-genderStatsData <- read.csv("data/Gender_StatsData.csv")
-genderStatsFootnote <- read.csv("data/Gender_StatsFootNote.csv")
-genderStatsSeries <- read.csv("data/Gender_StatsSeries.csv")
-genderStatsSeriesTime <- read.csv("data/Gender_StatsSeries-Time.csv")
+setwd("D:/Columbia University/GR5702 - EDAV/Final Project/Gender_Stats_csv")
+
+genderStatsCountry <- read.csv("Gender_StatsCountry.csv")
+genderStatsCountrySeries <- read.csv("Gender_StatsCountry-Series.csv")
+genderStatsData <- read.csv("Gender_StatsData.csv")
+genderStatsFootnote <- read.csv("Gender_StatsFootNote.csv")
+genderStatsSeries <- read.csv("Gender_StatsSeries.csv")
+genderStatsSeriesTime <- read.csv("Gender_StatsSeries-Time.csv")
 full_data <- merge(genderStatsSeries, genderStatsData, by.x = "ï..Series.Code", by.y = "Indicator.Code")
 
 countries = c('CAN', 'USA', 'MEX', 'NIC', 'SLV',
@@ -517,12 +519,14 @@ library(gridExtra)
 
 #Load in data
 
-genderStatsCountry <- read.csv("data/Gender_StatsCountry.csv")
-genderStatsCountrySeries <- read.csv("data/Gender_StatsCountry-Series.csv")
-genderStatsData <- read.csv("data/Gender_StatsData.csv")
-genderStatsFootnote <- read.csv("data/Gender_StatsFootNote.csv")
-genderStatsSeries <- read.csv("data/Gender_StatsSeries.csv")
-genderStatsSeriesTime <- read.csv("data/Gender_StatsSeries-Time.csv")
+setwd("D:/Columbia University/GR5702 - EDAV/Final Project/Gender_Stats_csv")
+
+genderStatsCountry <- read.csv("Gender_StatsCountry.csv")
+genderStatsCountrySeries <- read.csv("Gender_StatsCountry-Series.csv")
+genderStatsData <- read.csv("Gender_StatsData.csv")
+genderStatsFootnote <- read.csv("Gender_StatsFootNote.csv")
+genderStatsSeries <- read.csv("Gender_StatsSeries.csv")
+genderStatsSeriesTime <- read.csv("Gender_StatsSeries-Time.csv")
 full_data <- merge(genderStatsSeries, genderStatsData, by.x = "ï..Series.Code", by.y = "Indicator.Code")
 
 #Full Data of all Countries
@@ -670,8 +674,9 @@ library(patchwork)
 
 #Load in data
 
+setwd("D:/Columbia University/GR5702 - EDAV/Final Project/Gender_Stats_csv")
 
-data = read.csv("data/Gender_StatsData.csv",header = TRUE,encoding="UTF-8")
+data = read.csv("Gender_StatsData.csv",header = TRUE,encoding="UTF-8")
 colnames(data)=c("Country","Code","Indicator_details","Indicator",as.character(1960:2020))
 
 Code = c("CAN","USA","MEX","NIC","SLV","COL","BRA","CHL","ARG","URY","RUS","ISL","UKR","BLR","LTU","CHN","JPN","KOR","THA","MYS","COG","ZWE","TZA","NER","NGA",'AUS','NZL','PNG','WSM','FJI')
@@ -683,7 +688,7 @@ colnames(data_GDP) = c("Code","GDP")
 data_GDP$GDP = log(data_GDP$GDP)
 
 
-data_incom = read.csv("data/Gender_StatsCountry.csv",header = TRUE,encoding="UTF-8")[,c(1,9)]
+data_incom = read.csv("Gender_StatsCountry.csv",header = TRUE,encoding="UTF-8")[,c(1,9)]
 colnames(data_incom) = c("Code","Income")
 data_INC = data_incom[data_incom$Code%in%Code,]
 data_EMP = data[data$Code%in%Code & data$Indicator == "SL.TLF.CACT.FM.ZS",c(2,55:64)]

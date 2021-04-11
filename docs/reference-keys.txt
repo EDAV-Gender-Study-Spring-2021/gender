@@ -2,12 +2,12 @@ introduction
 data-sources
 data-transformation
 missing-values
-results
-social
+social-rights
 education
 employment
-interactive-component
-conclusion
-social-rights
+results
+social
 education-1
 employment-1
+interactive-component
+conclusion
