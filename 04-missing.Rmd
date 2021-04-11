@@ -1,3 +1,98 @@
 # Missing values
 
 There is no missing data for the social rights aspect analysis.
+
+
+```{r, echo = FALSE, fig.height = 15, fig.width = 15}
+#Vincent Figure 1
+defaultW <- getOption("warn") 
+options(warn = -1) 
+
+packages = c('tidyverse', 'dplyr', 'tidyr', 'mi', 'stringr')
+
+for(p in packages){
+  if(!require(p, character.only = T)){
+    install.packages(p)
+  }
+}
+
+library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(mi)
+library(stringr)
+
+#Load in data
+
+genderStatsCountry <- read.csv("data/Gender_StatsCountry.csv")
+genderStatsCountrySeries <- read.csv("data/Gender_StatsCountry-Series.csv")
+genderStatsData <- read.csv("data/Gender_StatsData.csv")
+genderStatsFootnote <- read.csv("data/Gender_StatsFootNote.csv")
+genderStatsSeries <- read.csv("data/Gender_StatsSeries.csv")
+genderStatsSeriesTime <- read.csv("data/Gender_StatsSeries-Time.csv")
+full_data <- merge(genderStatsSeries, genderStatsData, by.x = "ï..Series.Code", by.y = "Indicator.Code")
+
+countries = c('CAN', 'USA', 'MEX', 'NIC', 'SLV',
+              'COL', 'BRA', 'CHL', 'ARG', 'URY',
+              'RUS', 'ISL', 'UKR', 'BLR', 'LTU',
+              'CHN', 'JPN', 'KOR', 'THA', 'MYS',
+              'ZWE', 'TZA', 'NER', 'NGA', 'COG',
+              'AUS', 'NZL', 'PNG', 'WSM', 'FJI')
+
+emp_data <- full_data %>% 
+  filter(Indicator.Name.x == 'Employment to population ratio, 15+, female (%) (modeled ILO estimate)') %>% 
+  select(22:24, 75:84) %>% 
+  mutate_if(is.numeric, round, 1)
+emp_data <- emp_data[emp_data$Country.Code %in% countries ,]
+emp_data <- emp_data %>% 
+  separate(Indicator.Name.y, c('Indicator.Name', 'Age', 'Gender'), sep = ', ') %>% 
+  separate(Gender, c('Sex', 'Other'), sep = '^[^\\s]*\\K\\s')
+
+emp_data_m <- full_data %>% 
+  filter(Indicator.Name.x == 'Employment to population ratio, 15+, male (%) (modeled ILO estimate)') %>% 
+  select(22:24, 75:84) %>% 
+  mutate_if(is.numeric, round, 1)
+emp_data_m <- emp_data_m[emp_data_m$Country.Code %in% countries ,]
+emp_data_m <- emp_data_m %>% 
+  separate(Indicator.Name.y, c('Indicator.Name', 'Age', 'Gender'), sep = ', ') %>% 
+  separate(Gender, c('Sex', 'Other'), sep = '^[^\\s]*\\K\\s')
+
+mng_data <- full_data %>% 
+  filter(Indicator.Name.x == 'Female share of employment in senior and middle management (%)') %>%
+  select(22:24, 75:84) %>%
+  mutate_if(is.numeric, round, 1)
+mng_data <- mng_data[mng_data$Country.Code %in% countries ,]
+
+lab_data <- full_data %>% 
+  filter(Indicator.Name.x == 'Ratio of female to male labor force participation rate (%) (modeled ILO estimate)') %>%
+  select(22:24, 75:84) %>%
+  mutate_if(is.numeric, round, 1)
+lab_data <- lab_data[lab_data$Country.Code %in% countries ,]
+
+df <- emp_data %>% 
+  select(1, 7:16)
+names(df)[substr(names(df), 1, 1) == 'X'] <- paste(substr(names(df), 1, 5), 'var1')
+
+df2 <- emp_data_m %>% 
+  select(1, 7:16)
+names(df2)[substr(names(df2), 1, 1) == 'X'] <- paste(substr(names(df2), 1, 5), 'var2')
+
+df3 <- mng_data %>% 
+  select(1, 4:13)
+names(df3)[substr(names(df3), 1, 1) == 'X'] <- paste(substr(names(df3), 1, 5), 'var3')
+
+df4 <- lab_data %>% 
+  select(1, 4:13)
+names(df4)[substr(names(df4), 1, 1) == 'X'] <- paste(substr(names(df4), 1, 5), 'var4')
+
+df_final <- merge(df, df2, by.x = 'ï..Country.Name', by.y = 'ï..Country.Name')
+df_final <- merge(df_final, df3, by.x = 'ï..Country.Name', by.y = 'ï..Country.Name')
+df_final <- merge(df_final, df4, by.x = 'ï..Country.Name', by.y = 'ï..Country.Name')
+
+x <- missing_data.frame(df_final)
+fig <- image(x)
+fig
+
+options(warn = defaultW)
+```
+For the data used to analyze employment trends, v1 signifies the employment to population ratio of females 15+, v2 signifies the employment to population ratio of males 15+, v3 signifies the proportion of females in upper/middle management, and v4 signifies the Women business and the law index scores. There are no missing values for v1, v2, and v4 as they are model ILO estimates, so some values are interpolated by the World Bank. Even though v3 has a ton of missing values, the proportion of females to males in upper/middle management relative to the proportion of females to males in the workforce appears to be a strong indicator for discrepancies in employment opportunities, so a decision was made to keep the feature for analysis. Out of the 30 countries selected, 12 countries had no information on the proportion of females in upper/middle management and they were excluded from the analysis that followed.
