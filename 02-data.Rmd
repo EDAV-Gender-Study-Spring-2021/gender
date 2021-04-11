@@ -7,5 +7,15 @@ For all the data collected, the World Bank ensures data consistency and reliabil
   -	Building consensus and defining internationally agreed indicators such as the indicators for the Millennium Development Goals  
   -	Establishing data exchange processes and methods  
   -	Assembling, analyzing, and disseminating data online and in print  
+
+In this project, we use a big data file, gender statistics, which has 164,112 rows and 66 columns. Each entry represents a single indicator for a country. In total, we have 263 countries and each has 624 different indicators. One indicator is a record item, eg. GDP, and have numeric data recorded from 1960 to 2020. In each row, it has 4 string variables: country name, country code, a description of indicator and indicator code. The indicators have a “boolean” form like the yes or no statement, with the numeric data entries 1 as yes, 0 as no. The indicators can be categorized into 5 types. 
+General information about the country, like GDP, fertility rate, poverty, population; 
+Education related items, like school enrollment;
+Employment and unemployment;
+Specific female social status indicator, like if a women can apply a passport in a same way as a man;
+Health related indicator, like life expectancy and rate of overweight.
+
+However, one problem in this data file is the high proportion of missing values. It is understandable that some country may not have records on some specific indicators, or the records are missing for some years. If we use the data from all countries, we may have too many missing values that makes our results unreliable. Thus, we decide to take a sample of countries that have relative less missing values on the indicators we aim to use.
+
   
 *Info comes from: https://data.worldbank.org/about
