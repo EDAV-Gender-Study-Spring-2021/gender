@@ -103,7 +103,7 @@
 <div id="interactive-component" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Interactive component</h1>
 <script src="https://d3js.org/d3.v6.js"></script>
-<svg width="960" height="500">
+<svg width="688" height="500">
 </svg>
 <script> 
 
@@ -185,24 +185,22 @@
         .text(title);
 
   var object_dataset = [
-    {cx: 60, cy: 450, text: `1995-1999`,no:"r1"},
-    {cx: 240, cy: 450, text: `2000-2004`,no:"r2"},
-    {cx: 420, cy: 450, text: `2005-2009`,no:"r3"},
-    {cx: 600, cy: 450, text: `2010-2014`,no:"r4"},
-    {cx: 780, cy: 450, text: `2015-2019`,no:"r5"},
+    {cx: 43, cy: 450, text: `1995-1999`,no:"r1"},
+    {cx: 172, cy: 450, text: `2000-2004`,no:"r2"},
+    {cx: 301, cy: 450, text: `2005-2009`,no:"r3"},
+    {cx: 430, cy: 450, text: `2010-2014`,no:"r4"},
+    {cx: 559, cy: 450, text: `2015-2019`,no:"r5"},
     ];
 
   svg.selectAll('rect').data(object_dataset)
     .enter().append('rect')
       .attr('x', d => d.cx + 50)
       .attr('y', d => d.cy - 30)
-      .attr('width', 120)
+      .attr('width', 86)
       .attr('height', 50)
       .attr('fill', 'lightgreen')
       .attr('id', d => d.no);
 
-
-    
   svg.select("rect#r2").on("click",function(data_1){
     svg.selectAll("rect").attr("fill","lightgreen")
     svg.select("rect#r2").attr("fill","green")
@@ -286,16 +284,16 @@
     });
 
   var object_dataset = [
-    {cx: 60, cy: 450, text: `1995-1999`,no:"r1"},
-    {cx: 240, cy: 450, text: `2000-2004`,no:"r2"},
-    {cx: 420, cy: 450, text: `2005-2009`,no:"r3"},
-    {cx: 600, cy: 450, text: `2010-2014`,no:"r4"},
-    {cx: 780, cy: 450, text: `2015-2019`,no:"r5"},
+    {cx: 43, cy: 450, text: `1995-1999`,no:"r1"},
+    {cx: 172, cy: 450, text: `2000-2004`,no:"r2"},
+    {cx: 301, cy: 450, text: `2005-2009`,no:"r3"},
+    {cx: 430, cy: 450, text: `2010-2014`,no:"r4"},
+    {cx: 559, cy: 450, text: `2015-2019`,no:"r5"},
     ];
 
   svg.selectAll('text').data(object_dataset)
     .enter().append('text')
-      .attr('x', d => d.cx + 110)
+      .attr('x', d => d.cx + 90)
       .attr('y', d => d.cy + 50)
       .text(d => d.text)
       .attr('fill', 'black')
