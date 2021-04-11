@@ -1,6 +1,140 @@
 # Results
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,warning=FALSE,message = FALSE)
+```
+
 ## Social
+
+To discuss the social rights for women in the world these years.
+
+To explore the details about the social rights, the heatmap is a good choice. The y axis is ordered by the average scores of countries from high to low. The x axis is ordered by the average scores of the topics.
+
+```{r ,fig.width=12}
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+library(parcoords)
+
+data = read.csv("data/Gender_StatsData.csv",header = TRUE,encoding="UTF-8")
+colnames(data)=c("Country","Code","Indicator_details","Indicator",as.character(1960:2020))
+
+Code = c("CAN","USA","MEX","NIC","SLV","COL","BRA","CHL","ARG","URY","RUS","ISL","UKR","BLR","LTU","CHN","JPN","KOR","THA","MYS","COG","ZWE","TZA","NER","NGA",'AUS','NZL','PNG','WSM','FJI')
+Continent = rep(c("North_America","South_America","Europe","Asia","Africa","Oceania"),rep(5,6))
+data_continent = data.frame(cbind(Code,Continent))
+
+Indicator = c("SG.APL.PSPT.EQ","SG.HLD.HEAD.EQ","SG.LOC.LIVE.EQ","SG.GET.JOBS.EQ","SG.OBT.DVRC.EQ","SG.OPN.BANK.EQ","SG.BUS.REGT.EQ","SG.CNT.SIGN.EQ","SG.HME.TRVL.EQ","SG.CTR.TRVL.EQ","SG.NGT.WORK.EQ","SG.DNG.WORK.DN.EQ","SG.IND.WORK.EQ","SG.REM.RIGT.EQ","SG.AGE.FUPN.EQ","SG.AGE.PAPN.EQ","SH.MMR.LEVE.GT","SG.LAW.ASST.AR","SG.LAW.CRDD.GR","SG.AGE.MRET.EQ","SG.ABS.PENB","SG.LEG.SXHR.EM","SG.LEG.DVAW","SG.LAW.OBHB.MR.NO")
+Category = c("law","marriage","freedom","job","marriage","finance","finance","law","freedom","freedom","job","job","job","marriage","welfare","welfare","welfare","law","law","law","welfare","law","law","law")
+data_cat = data.frame(cbind(Indicator,Category))
+
+data_1 = data[data$Code%in%Code & data$Indicator%in%Indicator,c(1,2,4,25:65)]
+data_2 = left_join(data_1,data_continent,by=c("Code"))
+data_3 = left_join(data_2,data_cat,by=c("Indicator"))
+
+data_4 = data_3 %>%pivot_longer(cols = starts_with("1") | starts_with("2"),names_to = "Year",values_to = "Yes_or_No")
+data_c = data_4 %>% group_by(Country,Code,Continent,Category,Year) %>% summarise(Score = mean(Yes_or_No))
+
+#data_e for reorder
+data_tot_s_y = data_c[data_c$Year == 2020,] %>% group_by(Country) %>% summarise(Tot_S_Y = sum(Score))
+data_tot_s_x = data_c[data_c$Year == 2020,] %>% group_by(Category) %>% summarise(Tot_S_X = sum(Score))
+data_e = left_join(data_c[data_c$Year == 2020,],data_tot_s_y,by=c("Country"))
+data_e = left_join(data_e,data_tot_s_x,by = c("Category"))
+
+ggplot(data_e,aes(y=fct_reorder(Country,Tot_S_Y),x=fct_rev(fct_reorder(Category,Tot_S_X))))+
+  geom_tile(aes(fill=Score)) +
+  scale_fill_distiller(palette='Reds',direction = 1) +
+  scale_x_discrete("Score")+
+  scale_y_discrete("Country")+
+  theme_classic(base_size = 16) +
+  theme(axis.line = element_blank(),
+        axis.ticks = element_blank())
+```
+
+We can see that the Iceland, the Canada and the New Zealand actually both achieve 1 in 6 topics, meaning that no gender discrimination in the social rights aspect in these three countries. Compare to that, The Niger has no score 1 in every topic, meaning there is still some gender discrimination in these aspects. Especially for the marriage, the score is close to 0, meaning men have more power to dominate the marriage in Niger. Another points should be paid attention to is that the job have a very low score in Ukraine while other scores are quite high, meaning that only in the workplace, the women will be treated differently as men in Ukraine.
+
+Moreover, there are some countries have really similar conditions in different aspects for the gender discrimination. For example, Canada and Iceland and New Zealand, United States and Mexico, Nicaragua and Lithuania, Zimbabwe and El Salvador, Fiji and Colombia, China and Belarus, Russian Federation and Papua New Guinea. We will discuss what kinds of factor contributes to the distribution of the scores like this.
+
+Generally, women tend to have the same rights as the men in the finance aspect since only 1 country did not achieve 1 in finance. For the freedom part, only 4 countries did not achieve 1, meaning that the majorities of the countries do not keep women from doing something which men can do. However, in terms of the social welfare, the women tend to have a worse welfare guaranteed compared to men in these years with only 5 countries achieving score 1. As for law, marriage and job, different countries have different conditions and the results did not have a strong inclination to 1 or 0.
+
+```{r fig.width=12}
+
+ggplot(data_e, aes(Score)) +
+  geom_histogram(color = "grey", 
+                 fill = "lightBlue",
+                 binwidth = 0.1, 
+                 center = 0.05, 
+                 closed = "right")+
+  facet_wrap(~ Category)+
+  scale_x_continuous(breaks=seq(0,1,0.1))+
+  theme_bw(base_size = 16) 
+
+#situation -> heatmap #6 aspects vs 25 countries, scores
+```
+
+Since the heatmap do not show the detailed score distribution of topics clearly. We can explore the general distribution more carefully by looking at the bar charts. We can see that for the finance part ad freedom part, the majorities of countries has 1. For the job aspect, We can see that except the score 1 and the outlier laying between 0.2 to 0.3, there are two clusters of countries distributed in the range of 0.4-0.5 and 0.7-0.8, meaning there is a gap (0.5-0.7) between the countries for the women social status in the job aspect. For law, we can see the range of the clusters are nested in the right corner except the outlier laying between 0.3 to 0.4, meaning the general scores are high in the law aspect and the difference of the condition are small between the countries. For marriage, only 3 countries are outliers, and the majority countries are landed in score 1 with approximately 7 countries having 0.6-0.7 scores. For welfare, we can see there are mainly 3 clusters, for 0.4-0.5, 0.7-0.8, 0.9-1.0 respectively. And nearly halves are in 0.4-0.5 and another halves are in 0.7-0.8. It shows that the general condition in the world is that the women have worse welfare compared to men. And there is a treatment gap (0.5-0.7) between the countries in two clusters.
+
+```{r,fig.width=12}
+#change -> curves
+data_f = data_4 %>% group_by(Category,Year) %>% summarise(Score = mean(Yes_or_No))
+data_f$Category = fct_reorder2(data_f$Category,data_f$Year,data_f$Score)
+ggplot(data_f, aes(x=Year, y= Score, group = Category, color = Category)) +
+  scale_y_continuous("Average Score")+
+  geom_line() +
+  theme_bw(base_size = 16) +
+  scale_x_discrete(breaks = seq(1980,2020,5))+
+  scale_color_colorblind()
+```
+
+
+The labels are ordered according to the average score of 30 countries in the 2020.
+
+We can see the general trend of the women social rights in different topics from the curve plot. 
+In the recent 40 years, the general trend for the women rights is increasing for every topic. And the increase started formally at around 1987-1990 for every topic. The law curve grew most rapidly from around 0.56 to 0.86, exceeding the score of job in 2020. Although the welfare score was low at the beginning, it also grew very rapidly from around 0.45 to 0.68. The growth pattern of the finance and freedom are similar, so we guess that they are somehow correlated, so do the job and marriage. Therefore, the gender discrimination problem is disappearing and it is most obvious in the welfare and law aspects.
+
+
+```{r fig.width=12}
+#difference -> parallel coordinates #GDP, Continents, 6 aspects.
+
+data_GDP = data[data$Code%in%Code & data$Indicator== "NY.GDP.MKTP.CD",c(2,64)]
+colnames(data_GDP) = c("Code","log_GDP")
+data_GDP$log_GDP = log(data_GDP$log_GDP)
+data_5 = left_join(data_3,data_GDP,by=c("Code"))
+data_5 = data_5[,c(1,2,3,44,45,46,47)]
+data_5 = data_5 %>% group_by(Country,Code,Continent,Category,log_GDP) %>% summarise(Score = mean(`2020`))
+data_6 = spread(data_5,Category,Score)[,-c(1,2,5,6)]
+
+parcoords(data_6,
+          color = list(
+            colorScale = "scaleOrdinal",
+            colorBy = "Continent",
+            colorScheme = c("#009E73","#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+          ),
+          alpha = 0.5,
+          withD3 = TRUE, brushMode = "1d-axes", reorderable = TRUE, rownames = FALSE)
+#ColorBlind
+
+```
+
+
+Since we have more variations about the score in job, welfare, marriage and law aspects. We will only explore what potential factors influenced these variations.
+
+Also, since some countries’ GDP are extremely high, making other countries’ GDP hard to see in the parallel coordinates, We just used the log to scale the GDP, which will not influence the absolute rank of the GDP. 
+
+We can drag the GDP or Continent coordinates to see the correlation between the GDP or Continent and other factors we are interested in. And also we can select the range of the coordinates from top to bottom to see how the gender discrimination condition will vary when the GDP is high or the Continent is specified. 
+
+
+The key findings in this part is following:
+
+1.There is no obvious evidence that GDP will influence the gender discrimination in the social rights aspect.
+
+2. Countries in North America will have a higher score in job while the countries in Asia will have a lower score in job. Other continents have various scores, showing no obvious trend.
+
+3. Countries in South America and Asia will have a lower score in law while the countries in North America will have a higher score in law. Other continents have various scores, showing no obvious trend.
+
+4. Countries in North America, Europe and Oceania will have a higher score in marriage. Other continents have various scores, showing no obvious trend.
+5. Countries in Africa will have a lower score in welfare. Other continents have various scores, showing no obvious trend.
+
+It is quite surprised that the GDP has no influence on the gender discrimination in the social rights aspect but the geographic position will influence it. Maybe the cultural reasons instead of the financial reasons will dominate the gender discrimination problem more. It quite makes sense. Although in these years we focus on solving the discrimination, it is quite hard to wipe it out since the cultural stereotypes will give us a preconception about the gender and then influence our action and decisions subconsciously.
 
 ## Education
 
