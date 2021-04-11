@@ -1,6 +1,6 @@
 --- 
 title: "Analyzing Gender Discrepancies Over Time Using Social, Educational, and Employment Trends"
-author: "Xiaoyan Li, Yaojia Ye, Vincent Chang"
+author: "Vincent Chang, Xiaoyan Li, Yaojia Ye"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
