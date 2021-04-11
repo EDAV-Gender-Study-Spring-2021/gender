@@ -122,6 +122,7 @@ Also, since some countries’ GDP are extremely high, making other countries’ 
 
 We can drag the GDP or Continent coordinates to see the correlation between the GDP or Continent and other factors we are interested in. And also we can select the range of the coordinates from top to bottom to see how the gender discrimination condition will vary when the GDP is high or the Continent is specified. 
 
+
 The key findings in this part is following:
 
 1.There is no obvious evidence that GDP will influence the gender discrimination in the social rights aspect.
