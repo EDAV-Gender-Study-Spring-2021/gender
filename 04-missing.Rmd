@@ -1,8 +1,12 @@
 # Missing values
 
+## Social Rights  
 There is no missing data for the social rights aspect analysis.
 
+## Education  
 
+
+## Employment 
 ```{r, echo = FALSE, fig.height = 15, fig.width = 15}
 #Vincent Figure 1
 defaultW <- getOption("warn") 
