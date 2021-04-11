@@ -16,7 +16,7 @@ library(ggplot2)
 library(ggthemes)
 library(parcoords)
 
-data = read.csv("Gender_StatsData.csv",header = TRUE,encoding="UTF-8")
+data = read.csv("data/Gender_StatsData.csv",header = TRUE,encoding="UTF-8")
 colnames(data)=c("Country","Code","Indicator_details","Indicator",as.character(1960:2020))
 
 Code = c("CAN","USA","MEX","NIC","SLV","COL","BRA","CHL","ARG","URY","RUS","ISL","UKR","BLR","LTU","CHN","JPN","KOR","THA","MYS","COG","ZWE","TZA","NER","NGA",'AUS','NZL','PNG','WSM','FJI')
@@ -96,11 +96,11 @@ In the recent 40 years, the general trend for the women rights is increasing for
 #difference -> parallel coordinates #GDP, Continents, 6 aspects.
 
 data_GDP = data[data$Code%in%Code & data$Indicator== "NY.GDP.MKTP.CD",c(2,64)]
-colnames(data_GDP) = c("Code","GDP")
-data_GDP$GDP = log(data_GDP$GDP)
+colnames(data_GDP) = c("Code","log_GDP")
+data_GDP$log_GDP = log(data_GDP$log_GDP)
 data_5 = left_join(data_3,data_GDP,by=c("Code"))
 data_5 = data_5[,c(1,2,3,44,45,46,47)]
-data_5 = data_5 %>% group_by(Country,Code,Continent,Category,GDP) %>% summarise(Score = mean(`2020`))
+data_5 = data_5 %>% group_by(Country,Code,Continent,Category,log_GDP) %>% summarise(Score = mean(`2020`))
 data_6 = spread(data_5,Category,Score)[,-c(1,2,5,6)]
 
 parcoords(data_6,
