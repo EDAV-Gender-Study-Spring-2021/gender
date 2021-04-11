@@ -1,3 +1,202 @@
 # Interactive component
 
+<script src="https://d3js.org/d3.v6.js"></script>
+<svg width="960" height="500"></svg>
 
+<script> 
+
+  const svg = d3.select('svg');
+  const width = +svg.attr('width');
+  const height = +svg.attr('height');
+
+  const render = data_1 => {
+    const title = 'Social, Educational, and Employment Trends';
+    const xValue_1 = d => d.emp1;
+    const yValue_1 = d => d.educ1;
+    const xValue_2 = d => d.emp2;
+    const yValue_2 = d => d.educ2;
+    const xValue_3 = d => d.emp3;
+    const yValue_3 = d => d.educ3;
+    const xValue_4 = d => d.emp4;
+    const yValue_4 = d => d.educ4;
+    const xValue_5 = d => d.emp5;
+    const yValue_5 = d => d.educ5;
+    const rValue_1 = d => d.Score1;
+    const rValue_2 = d => d.Score2;
+    const rValue_3 = d => d.Score3;
+    const rValue_4 = d => d.Score4;
+    const rValue_5 = d => d.Score5;
+    const xAxisLabel = 'Employment';
+    const yAxisLabel = 'Education';
+    const circleRadius = 10;
+    const margin = { top: 60, right: 40, bottom: 175, left: 150 };
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+    const xScale = d3.scaleLinear()
+      .domain([40, 100])
+      .range([0, innerWidth])
+      .nice();
+    const yScale = d3.scaleLinear()
+      .domain([20, 180])
+      .range([innerHeight, 0])
+      .nice();
+    const compute = d3.interpolate('lightgreen', 'black')
+    const linear = d3.scaleLinear().domain([0.46, 1]).range([0, 1])
+  	const myColor = d3.scaleLinear().domain([0.3, 1])
+    	.range(["black", "green"]);
+    const g = svg.append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
+    const xAxis = d3.axisBottom(xScale)
+      .tickSize(-innerHeight)
+      .tickPadding(15);
+    const yAxis = d3.axisLeft(yScale)
+      .tickSize(-innerWidth)
+      .tickPadding(10);
+    const yAxisG = g.append('g').call(yAxis);
+    yAxisG.selectAll('.domain').remove();
+    yAxisG.append('text')
+        .attr('class', 'axis-label')
+        .attr('y', -93)
+        .attr('x', -innerHeight / 2)
+        .attr('fill', 'black')
+        .attr('transform', `rotate(-90)`)
+        .attr('text-anchor', 'middle')
+        .text(yAxisLabel);
+    const xAxisG = g.append('g').call(xAxis)
+      .attr('transform', `translate(0,${innerHeight})`);
+    xAxisG.select('.domain').remove();
+    xAxisG.append('text')
+        .attr('class', 'axis-label')
+        .attr('y', 75)
+        .attr('x', innerWidth / 2)
+        .attr('fill', 'black')
+        .text(xAxisLabel);
+    g.selectAll('circle').data(data_1)
+      .enter().append('circle')
+        .attr('cy', d => yScale(yValue_1(d)))
+        .attr('cx', d => xScale(xValue_1(d)))
+        .attr('r',  d => circleRadius)
+    		.attr('fill', d => compute(linear(rValue_1(d))));
+    g.append('text')
+        .attr('class', 'title')
+        .attr('y', -10)
+        .text(title);
+
+  var object_dataset = [
+    {cx: 60, cy: 450, text: `1995-1999`,no:"r1"},
+    {cx: 240, cy: 450, text: `2000-2004`,no:"r2"},
+    {cx: 420, cy: 450, text: `2005-2009`,no:"r3"},
+    {cx: 600, cy: 450, text: `2010-2014`,no:"r4"},
+    {cx: 780, cy: 450, text: `2015-2019`,no:"r5"},
+    ];
+
+  svg.selectAll('rect').data(object_dataset)
+    .enter().append('rect')
+      .attr('x', d => d.cx + 50)
+      .attr('y', d => d.cy - 30)
+      .attr('width', 120)
+      .attr('height', 50)
+      .attr('fill', 'lightgreen')
+      .attr('id', d => d.no);
+
+
+    
+  svg.select("rect#r2").on("click",function(data_1){
+    svg.selectAll("rect").attr("fill","lightgreen")
+    svg.select("rect#r2").attr("fill","green")
+        svg.selectAll("circle").transition()
+        .duration(2000)
+        .attr('cy', d => yScale(yValue_2(d)))
+        .attr('cx', d => xScale(xValue_2(d)))
+        .attr('r',  d => circleRadius)
+        .attr('fill', "red")
+        .attr('fill', d => compute(linear(rValue_2(d))))})
+      ;
+          
+  svg.select("rect#r1").on("click",function(data_1){
+    svg.selectAll("rect").attr("fill","lightgreen")
+    svg.select("rect#r1").attr("fill","green")
+    svg.selectAll("circle").transition()
+    .duration(2000)
+    .attr('cy', d => yScale(yValue_1(d)))
+    .attr('cx', d => xScale(xValue_1(d)))
+    .attr('r',  d => circleRadius)
+    .attr('fill', "red")
+    .attr('fill', d => compute(linear(rValue_1(d))))})
+  ;
+          
+  svg.select("rect#r3").on("click",function(data_1){
+    svg.selectAll("rect").attr("fill","lightgreen")
+    svg.select("rect#r3").attr("fill","green")
+    svg.selectAll("circle").transition()
+    .duration(2000)
+    .attr('cy', d => yScale(yValue_3(d)))
+    .attr('cx', d => xScale(xValue_3(d)))
+    .attr('r',  d => circleRadius)
+    .attr('fill', "red")
+    .attr('fill', d => compute(linear(rValue_3(d))))})
+  ;
+
+  svg.select("rect#r4").on("click",function(data_1){
+    svg.selectAll("rect").attr("fill","lightgreen")
+    svg.select("rect#r4").attr("fill","green")
+    svg.selectAll("circle").transition()
+    .duration(2000)
+    .attr('cy', d => yScale(yValue_4(d)))
+    .attr('cx', d => xScale(xValue_4(d)))
+    .attr('r',  d => circleRadius)
+    .attr('fill', "red")
+    .attr('fill', d => compute(linear(rValue_4(d))))})
+  ;
+  
+  svg.select("rect#r5").on("click",function(data_1){
+    svg.selectAll("rect").attr("fill","lightgreen")
+    svg.select("rect#r5").attr("fill","green")
+    svg.selectAll("circle").transition()
+    .duration(2000)
+    .attr('cy', d => yScale(yValue_5(d)))
+    .attr('cx', d => xScale(xValue_5(d)))
+    .attr('r',  d => circleRadius)
+    .attr('fill', "red")
+    .attr('fill', d => compute(linear(rValue_5(d))))})
+  };
+
+  d3.csv('https://raw.githubusercontent.com/yaojiaye00/final5702/main/data_all.csv')
+    .then(data_1 => {
+      data_1.forEach(d => {
+        d.Score1 = +d.Score1;
+        d.educ1 = +d.educ1; //Currently need to manually update based on input 
+        d.emp1 = +d.emp1; //Same as above
+        d.Score2 = +d.Score2;
+        d.educ2 = +d.educ2; 
+        d.emp2 = +d.emp2; 
+        d.Score3 = +d.Score3;
+        d.educ3 = +d.educ3; 
+        d.emp3 = +d.emp3; 
+        d.Score4 = +d.Score4;
+        d.educ4 = +d.educ4; 
+        d.emp4 = +d.emp4; 
+        d.Score5 = +d.Score5;
+        d.educ5 = +d.educ5; 
+        d.emp5 = +d.emp5; 
+      });
+      render(data_1)
+    });
+
+  var object_dataset = [
+    {cx: 60, cy: 450, text: `1995-1999`,no:"r1"},
+    {cx: 240, cy: 450, text: `2000-2004`,no:"r2"},
+    {cx: 420, cy: 450, text: `2005-2009`,no:"r3"},
+    {cx: 600, cy: 450, text: `2010-2014`,no:"r4"},
+    {cx: 780, cy: 450, text: `2015-2019`,no:"r5"},
+    ];
+
+  svg.selectAll('text').data(object_dataset)
+    .enter().append('text')
+      .attr('x', d => d.cx + 110)
+      .attr('y', d => d.cy + 50)
+      .text(d => d.text)
+      .attr('fill', 'black')
+      .attr('text-anchor', 'middle');
+
+</script>

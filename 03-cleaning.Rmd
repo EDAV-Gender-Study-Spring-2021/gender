@@ -1,1 +1,13 @@
 # Data transformation
+
+Data for this project is sourced from the following link:   https://datacatalog.worldbank.org/dataset/gender-statistics  
+  
+The CSV files were downloaded from the "Data & Resources" tab and imported directly into RStudio for processing. The specific steps taken to process the data for visualization differed between the three topics studied for this project: social rights, education, and employment.  
+
+For social rights,  
+  
+  
+For education,  
+  
+  
+For employment, 
