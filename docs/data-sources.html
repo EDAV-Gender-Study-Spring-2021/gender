@@ -33,6 +33,7 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="data-transformation.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,7 +51,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 
@@ -73,11 +73,17 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#social-rights"><i class="fa fa-check"></i><b>4.1</b> Social Rights</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#education"><i class="fa fa-check"></i><b>4.2</b> Education</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#employment"><i class="fa fa-check"></i><b>4.3</b> Employment</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#social"><i class="fa fa-check"></i><b>5.1</b> Social</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#education"><i class="fa fa-check"></i><b>5.2</b> Education</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#employment"><i class="fa fa-check"></i><b>5.3</b> Employment</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#education-1"><i class="fa fa-check"></i><b>5.2</b> Education</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#employment-1"><i class="fa fa-check"></i><b>5.3</b> Employment</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -100,7 +106,7 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-sources" class="section level1">
+<div id="data-sources" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
 <p>The data for this project is sourced from the World Bank. The World Bank is a group dedicated to providing high-quality statistical data on numerous topics globally to aid development and policy making. A lot of the information within the World Bank’s databases come directly from the statistical systems of member countries, which means the accuracy of the information is heavily dependent on how well these national systems perform their data collection. As a result, a high priority of the World Bank is to help improve statistical infrastructures of developing countries by preparing national strategies for the development of statistics “as recommended in the Marrakech Action Plan for Statistics”. Data collection is currently a joint effort between the World Bank and many other international statistical communities including the United Nations (UN), the Organization for Economic Co-Operation and Development (OECD), the International Monetary Fund (IMF), and regional development banks. Transnational data is also collected by the World Bank through globally coordinated programs like the Marrakech Action Plan for Statistics and PARIS21.</p>
 <p>For all the data collected, the World Bank ensures data consistency and reliability through:<br />
@@ -108,6 +114,13 @@
 - Building consensus and defining internationally agreed indicators such as the indicators for the Millennium Development Goals<br />
 - Establishing data exchange processes and methods<br />
 - Assembling, analyzing, and disseminating data online and in print</p>
+<p>In this project, we use a big data file, gender statistics, which has 164,112 rows and 66 columns. Each entry represents a single indicator for a country. In total, we have 263 countries and each has 624 different indicators. One indicator is a record item, eg. GDP, and have numeric data recorded from 1960 to 2020. In each row, it has 4 string variables: country name, country code, a description of indicator and indicator code. The indicators have a “boolean” form like the yes or no statement, with the numeric data entries 1 as yes, 0 as no. The indicators can be categorized into 5 types.
+General information about the country, like GDP, fertility rate, poverty, population;
+Education related items, like school enrollment;
+Employment and unemployment;
+Specific female social status indicator, like if a women can apply a passport in a same way as a man;
+Health related indicator, like life expectancy and rate of overweight.</p>
+<p>However, one problem in this data file is the high proportion of missing values. It is understandable that some country may not have records on some specific indicators, or the records are missing for some years. If we use the data from all countries, we may have too many missing values that makes our results unreliable. Thus, we decide to take a sample of countries that have relative less missing values on the indicators we aim to use.</p>
 <p>*Info comes from: <a href="https://data.worldbank.org/about" class="uri">https://data.worldbank.org/about</a></p>
 
 </div>
