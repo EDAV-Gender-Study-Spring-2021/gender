@@ -1,1 +1,3 @@
 # Missing values
+
+There is no missing data for the social rights aspect analysis.
