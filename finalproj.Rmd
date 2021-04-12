@@ -1,3 +1,311 @@
+--- 
+title: "Analyzing Gender Discrepancies Over Time Using Social, Educational, and Employment Trends"
+author: "Vincent Chang, Xiaoyan Li, Yaojia Ye"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+# Introduction
+
+In 2016, the American presidential election became the most heated topic around the world. On one hand, the support rates between Donald Trump and Hillary Clinton were very close, making the result hard to predict. If Hillary won the election, she would be the first women president in the American history. Hillary did not end up winning the presidential election but it is noteworthy that an extremely imbalanced gender distribution existed in specific working fields such as the president. Whether the gender discrimination exists worldwide and to what extent is gender discrimination present seem to be a interesting subject worthy to be explored. In this project, we want to gain a overall perception on gender discrimination in the world by mainly seeking the answers for three sub-questions through exploratory data analysis:
+
+1) How do women's social status compare to men's social status in modern society from a variety of standpoints like social rights, education, and employment?
+
+2) How has women's social status changed in the last 30 years (years data is available for) regarding social rights, education, and employment?  
+
+3) What are the differences and developments in women's social status between different countries in recent years? Does GDP (or other developmental / geographical factors) have an influence on equal rights. What are plausible explanations for gender discrepancies from the perspective of different countries?  
+
+Owing to the data availability for countries, we used only 30 countries with high quality data to do the analysis, each country was randomly chosen from 6 continents. We hope the situations in these countries can somehow reflect the gender discrepancies as a whole around the world.
+
+<!--chapter:end:index.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Data sources
+
+The data for this project is sourced from the World Bank. The World Bank is a group dedicated to providing high-quality statistical data on numerous topics globally to aid development and policy making. A lot of the information within the World Bank’s databases come directly from the statistical systems of member countries, which means the accuracy of the information is heavily dependent on how well these national systems perform their data collection. As a result, a high priority of the World Bank is to help improve statistical infrastructures of developing countries by preparing national strategies for the development of statistics “as recommended in the Marrakech Action Plan for Statistics”. Data collection is currently a joint effort between the World Bank and many other international statistical communities including the United Nations (UN), the Organization for Economic Co-Operation and Development (OECD), the International Monetary Fund (IMF), and regional development banks. Transnational data is also collected by the World Bank through globally coordinated programs like the Marrakech Action Plan for Statistics and PARIS21.  
+
+For all the data collected, the World Bank ensures data consistency and reliability through:  
+  -	Participation in the UN Statistical Commission and other statistical forums to develop appropriate frameworks, guidance, and standards of good practice for statistics  
+  -	Building consensus and defining internationally agreed indicators such as the indicators for the Millennium Development Goals  
+  -	Establishing data exchange processes and methods  
+  -	Assembling, analyzing, and disseminating data online and in print  
+
+The gender statistics data used for this project has 164,112 rows and 66 columns. Each entry represents a single indicator for a country. In total, there are 263 countries and each has 624 different indicators. Each indicator is a record item, eg. GDP, and have numeric data recorded from 1960 to 2020 (with more missing values in older years). In each row, it has 4 string variables: country name, country code, a description of indicator, and an indicator code. Some indicators have a boolean form like the yes or no statement, with the numeric data entries 1 as yes, 0 as no. The indicators can be categorized into 5 types.  
+  
+1) General information about the country, like GDP, fertility rate, poverty, population  
+2) Education related items, like school enrollment  
+3) Employment and unemployment  
+4) Specific female social status indicator, like if a women can apply a passport in a same way as a man  
+5) Health related indicator, like life expectancy and rate of overweight  
+
+One problem in this data file is the high proportion of missing values. It is understandable that some country may not have records on some specific indicators, or the records are missing for some years. If we used the data from all countries, we may have too many missing values that makes our results unreliable. Thus, we decided to take a sample of countries that has relatively fewer missing values on the indicators we aimed to use.
+
+*Info comes from: https://data.worldbank.org/about
+
+<!--chapter:end:02-data.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Data transformation
+
+Data for this project is sourced from the following link:   https://datacatalog.worldbank.org/dataset/gender-statistics  
+  
+The CSV files were downloaded from the "Data & Resources" tab and imported directly into RStudio for processing. The specific steps taken to process the data for visualization differed between the three topics studied for this project: social rights, education, and employment. Since there is information for over 200 regions, the project selected 30 to analyze their changes over time. Out of the 30 selected countries, 5 belonged to each continent. These countries were randomly selected.  
+  
+The selected countries are:  
+North America: Canada, El Salvador, Mexico, Nicaragua, United States  
+South America: Argentina, Brazil, Chile, Colombia, Uruguay  
+Europe: Belarus, Iceland, Lithuania, Russian Federation, Ukraine  
+Asia: China, Japan, Korea, Malaysia, Thailand  
+Africa: Rep. Congo, Niger, Nigeria, Tanzania, Zimbabwe  
+Oceania: Australia, Fiji, New Zealand, Papua New Guinea, Samoa  
+  
+For social rights, the dataset has a lot of questions related to the women social rights with binary labels attached. We divided 24 relevant rights into 6 topics: 2 for Finance, 3 for Freedom, 8 for Law, 3 for Marriage, 4 for Job and 4 for Welfare. If the answer to the question is yes, then the label is 1 (otherwise the label is 0). We averaged the binary numbers in each topic to get the averaged score for each topic. We then used the distribution of the scores for individual countries  to analyze social rights issues as presented in the introduction (details are in the check_list.csv).
+  
+For education, we selected indicators that represented the female and male education status across the time like school enrollment and rate of graduation. Moreover, in order to detect the correlation between female education status and other factors, we also selected GDP, fertility rate,  female rural population and government expenditure on education department. To reduce the effect of missing values, we use average scores across multiple years instead of using data from specific year on most of the plot except for the time-series plots.
+  
+For employment, the specific features selected from the data set included the employment to population ratio of males and females aged 15+ from model ILO estimates, the female share of employment in upper/middle management, the Women business and the law index, and the female/male employment ratio. The Women business and the law index had no missing values. 2010-2019 averages were used for data visualization for the other features where some values were missing. 
+
+<!--chapter:end:03-cleaning.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Missing values
+
+## Social Rights  
+There is no missing data for the social rights aspect analysis.
+
+## Education 
+```{r, include=FALSE}
+SOLUTIONS <- TRUE
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, 
+                      eval = SOLUTIONS, cache = FALSE)
+library(dplyr)
+library(ggplot2)
+library(ggthemes)
+library(forcats)
+library(parcoords)
+library(reshape2)
+library(GGally)
+library(mi)
+```
+
+```{r echo=FALSE}
+file <- "data/Gender_StatsData.csv"
+data <- read.csv(file)
+```
+
+```{r}
+country <- data %>% 
+  filter(Country.Code == "CAN" | Country.Code == "USA" | Country.Code == "MEX" | Country.Code == "NIC" | Country.Code == "SLV" | Country.Code == "COL" | Country.Code == "BRA" | Country.Code == "CHL" | Country.Code == "ARG" | Country.Code == "URY" | Country.Code == "RUS" | Country.Code == "ISL" | Country.Code == "UKR" | Country.Code == "BLR" | Country.Code == "LTU" | Country.Code == "CHN" | Country.Code == "JPN" | Country.Code == "KOR" | Country.Code == "THA" | Country.Code == "MYS" | Country.Code == "COG" | Country.Code == "ZWE" | Country.Code == "TZA" | Country.Code == "NER" | Country.Code == "NGA" | Country.Code == "AUS" | Country.Code == "NZL" | Country.Code == "PNG" | Country.Code == "WSM" | Country.Code == "FJI" ) 
+```
+
+```{r}
+data_q3 <- country %>% 
+  filter(Indicator.Code == "SP.DYN.TFRT.IN" | Indicator.Code == "NY.GDP.MKTP.CD" |  Indicator.Code == "SE.SCH.LIFE.FE" |  Indicator.Code == "SE.XPD.TOTL.GD.ZS" |  Indicator.Code == "SP.RUR.TOTL.FE.ZS")
+```
+
+```{r}
+data_q3 <- data_q3 %>% mutate_if(is.factor, funs(case_when( 
+    . == "SP.DYN.TFRT.IN" ~ "FertilityRate",
+    . == "NY.GDP.MKTP.CD" ~ "GDP(log in billion)",
+    . == "SE.SCH.LIFE.FE" ~ "ExpSchoolYear",
+    . == "SE.XPD.TOTL.GD.ZS" ~ "EducationSpend",
+    . == "SP.RUR.TOTL.FE.ZS" ~ "RuralPop",
+    . == "CAN" ~ "North America", 
+    . == "USA" ~ "North America",
+    . == "MEX" ~ "North America",
+    . == "NIC" ~ "North America",
+    . == "SLV" ~ "North America",
+    . == "COL" ~ "South America",
+    . == "BRA" ~ "South America",
+    . == "CHL" ~ "South America",
+    . == "ARG" ~ "South America",
+    . == "URY" ~ "South America",
+    . == "RUS" ~ "Europe",
+    . == "ISL" ~ "Europe",
+    . == "UKR" ~ "Europe",
+    . == "BLR" ~ "Europe",
+    . == "LTU" ~ "Europe",
+    . == "CHN" ~ "Asia",
+    . == "JPN" ~ "Asia",
+    . == "KOR" ~ "Asia",
+    . == "THA" ~ "Asia",
+    . == "MYS" ~ "Asia",
+    . == "COG" ~ "Africa",
+    . == "ZWE" ~ "Africa",
+    . == "TZA" ~ "Africa",
+    . == "NER" ~ "Africa",
+    . == "NGA" ~ "Africa",
+    . == "AUS" ~ "Oceania",
+    . == "NZL" ~ "Oceania",
+    . == "PNG" ~ "Oceania",
+    . == "WSM" ~ "Oceania",
+    . == "FJI" ~ "Oceania",
+    T ~ as.character(.))))
+```
+
+
+```{r}
+df <- data_q3 %>% 
+  select(ï..Country.Name,Country.Code, Indicator.Code, c(40:64)) %>%
+  group_by(ï..Country.Name, Country.Code, Indicator.Code)%>%
+  summarise_if(is.numeric, mean, na.rm = TRUE)
+```
+
+
+```{r}
+value <- rowMeans(df[4:28],  na.rm = TRUE)
+df$value <- value
+```
+
+```{r}
+df <- dcast(df, ï..Country.Name + Country.Code ~ Indicator.Code)
+colnames(df)[colnames(df) == "Country.Code"] <- "Continent"
+```
+
+```{r}
+df <- df[ , c(1, 2, 6, 5, 3, 7, 4)] 
+df[13,7] <- NA
+df[21,5] <- NA
+```
+
+```{r, echo = FALSE, fig.height = 10, fig.width = 10}
+library(mi)
+x <- missing_data.frame(df)
+image(x)
+```
+
+
+The above heatmap shows the missing value for the parallel coordinates in part 5.2. There are only two missing values in this data frame that has 30 rows and 7 columns. As all the data entries (except for country name and continent) are average scores across 25 years, the missing data here actually represents a 25 years data missing in our original data file. Thus, this heatmap implies that in the 30 countries we chose, there is one country have no data entry for education spend and one country has no data for expected school year in recent 25 years.
+
+## Employment 
+```{r, echo = FALSE, fig.height = 10, fig.width = 10}
+#Vincent Figure 1
+defaultW <- getOption("warn") 
+options(warn = -1) 
+
+packages = c('tidyverse', 'dplyr', 'tidyr', 'mi', 'stringr')
+
+for(p in packages){
+  if(!require(p, character.only = T)){
+    install.packages(p)
+  }
+}
+
+library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(mi)
+library(stringr)
+
+#Load in data
+
+genderStatsCountry <- read.csv("data/Gender_StatsCountry.csv")
+genderStatsCountrySeries <- read.csv("data/Gender_StatsCountry-Series.csv")
+genderStatsData <- read.csv("data/Gender_StatsData.csv")
+genderStatsFootnote <- read.csv("data/Gender_StatsFootNote.csv")
+genderStatsSeries <- read.csv("data/Gender_StatsSeries.csv")
+genderStatsSeriesTime <- read.csv("data/Gender_StatsSeries-Time.csv")
+full_data <- merge(genderStatsSeries, genderStatsData, by.x = "ï..Series.Code", by.y = "Indicator.Code")
+
+countries = c('CAN', 'USA', 'MEX', 'NIC', 'SLV',
+              'COL', 'BRA', 'CHL', 'ARG', 'URY',
+              'RUS', 'ISL', 'UKR', 'BLR', 'LTU',
+              'CHN', 'JPN', 'KOR', 'THA', 'MYS',
+              'ZWE', 'TZA', 'NER', 'NGA', 'COG',
+              'AUS', 'NZL', 'PNG', 'WSM', 'FJI')
+
+emp_data <- full_data %>% 
+  filter(Indicator.Name.x == 'Employment to population ratio, 15+, female (%) (modeled ILO estimate)') %>% 
+  select(22:24, 75:84) %>% 
+  mutate_if(is.numeric, round, 1)
+emp_data <- emp_data[emp_data$Country.Code %in% countries ,]
+emp_data <- emp_data %>% 
+  separate(Indicator.Name.y, c('Indicator.Name', 'Age', 'Gender'), sep = ', ') %>% 
+  separate(Gender, c('Sex', 'Other'), sep = '^[^\\s]*\\K\\s')
+
+emp_data_m <- full_data %>% 
+  filter(Indicator.Name.x == 'Employment to population ratio, 15+, male (%) (modeled ILO estimate)') %>% 
+  select(22:24, 75:84) %>% 
+  mutate_if(is.numeric, round, 1)
+emp_data_m <- emp_data_m[emp_data_m$Country.Code %in% countries ,]
+emp_data_m <- emp_data_m %>% 
+  separate(Indicator.Name.y, c('Indicator.Name', 'Age', 'Gender'), sep = ', ') %>% 
+  separate(Gender, c('Sex', 'Other'), sep = '^[^\\s]*\\K\\s')
+
+mng_data <- full_data %>% 
+  filter(Indicator.Name.x == 'Female share of employment in senior and middle management (%)') %>%
+  select(22:24, 75:84) %>%
+  mutate_if(is.numeric, round, 1)
+mng_data <- mng_data[mng_data$Country.Code %in% countries ,]
+
+lab_data <- full_data %>% 
+  filter(Indicator.Name.x == 'Ratio of female to male labor force participation rate (%) (modeled ILO estimate)') %>%
+  select(22:24, 75:84) %>%
+  mutate_if(is.numeric, round, 1)
+lab_data <- lab_data[lab_data$Country.Code %in% countries ,]
+
+df <- emp_data %>% 
+  select(1, 7:16)
+names(df)[substr(names(df), 1, 1) == 'X'] <- paste(substr(names(df), 1, 5), 'var1')
+
+df2 <- emp_data_m %>% 
+  select(1, 7:16)
+names(df2)[substr(names(df2), 1, 1) == 'X'] <- paste(substr(names(df2), 1, 5), 'var2')
+
+df3 <- mng_data %>% 
+  select(1, 4:13)
+names(df3)[substr(names(df3), 1, 1) == 'X'] <- paste(substr(names(df3), 1, 5), 'var3')
+
+df4 <- lab_data %>% 
+  select(1, 4:13)
+names(df4)[substr(names(df4), 1, 1) == 'X'] <- paste(substr(names(df4), 1, 5), 'var4')
+
+df_final <- merge(df, df2, by.x = 'ï..Country.Name', by.y = 'ï..Country.Name')
+df_final <- merge(df_final, df3, by.x = 'ï..Country.Name', by.y = 'ï..Country.Name')
+df_final <- merge(df_final, df4, by.x = 'ï..Country.Name', by.y = 'ï..Country.Name')
+
+x <- missing_data.frame(df_final)
+fig <- image(x)
+fig
+
+options(warn = defaultW)
+```
+For the data used to analyze employment trends, v1 signifies the employment to population ratio of females 15+, v2 signifies the employment to population ratio of males 15+, v3 signifies the proportion of females in upper/middle management, and v4 signifies the Women business and the law index scores. There are no missing values for v1, v2, and v4 as they are model ILO estimates, so some values are interpolated by the World Bank. Even though v3 has a ton of missing values, the proportion of females to males in upper/middle management relative to the proportion of females to males in the workforce appears to be a strong indicator for discrepancies in employment opportunities, so a decision was made to keep the feature for analysis. Out of the 30 countries selected, 12 countries had no information on the proportion of females in upper/middle management and they were excluded from the analysis that followed.
+
+<!--chapter:end:04-missing.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
 # Results
 
 By exploring the gender data, we want to analyze the gender discrepancies to answer the following questions:
@@ -712,3 +1020,262 @@ ggplot(data_EMP_AN,aes(y=Mean,x=GDP, color = Continent))+
 
 ```
 The figure above displays the ratio of female to male employment ratio vs. GDP on a log scale for each country color coded by continent. There appears to no correlation overall between a country’s female/male labor force participation rate to the country’s GDP as the data points are scattered throughout as opposed to group along a linear line. However, when looking at individual continents separately, female/male labor force participation rate does seem correlated with GDP in continents like Europe, Africa, and North America (trend is not really observable for Asia, Oceania, and South America). This suggests that the correlation between female/male employment ratio may have a lot to do with geographical location of the country, and depending on the location, the ratio may be correlated with GDP.
+
+<!--chapter:end:05-results.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Interactive component
+
+This interactive part shows the general relationship and the general trend of education, employment and social rights of women in different countries during last 25 years.
+
+The social rights used the values of average score of 6 aspects mentioned above (showed in color, with lightgreen representing smaller values and black representing larger values). Darker circles represent higher equality in social rights. The employment used the values of employment ratio in percentage (showed in x axis). The education used the primary school enrollment rate of women (%)(showed in y axis).
+
+Each point represents one country we sampled.
+
+Users can click the light-green buttons which represents the year range of the statistics and see how the statistics for each country change and whether the different factors change in the similar direction.
+
+This interactive portion shows the animation of changes that have happened in the past 25 years regarding social rights, education, and employment for all 30 countries simultaneously, something a static plot will struggle to present.
+
+<script src="https://d3js.org/d3.v6.js"></script>
+<svg width="688" height="500"></svg>
+
+<script> 
+
+  const svg = d3.select('svg');
+  const width = +svg.attr('width');
+  const height = +svg.attr('height');
+
+  const render = data_1 => {
+    const title = 'Social, Educational, and Employment Trends';
+    const xValue_1 = d => d.emp1;
+    const yValue_1 = d => d.educ1;
+    const xValue_2 = d => d.emp2;
+    const yValue_2 = d => d.educ2;
+    const xValue_3 = d => d.emp3;
+    const yValue_3 = d => d.educ3;
+    const xValue_4 = d => d.emp4;
+    const yValue_4 = d => d.educ4;
+    const xValue_5 = d => d.emp5;
+    const yValue_5 = d => d.educ5;
+    const rValue_1 = d => d.Score1;
+    const rValue_2 = d => d.Score2;
+    const rValue_3 = d => d.Score3;
+    const rValue_4 = d => d.Score4;
+    const rValue_5 = d => d.Score5;
+    const xAxisLabel = 'Employment';
+    const yAxisLabel = 'Education';
+    const circleRadius = 10;
+    const margin = { top: 60, right: 40, bottom: 175, left: 150 };
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+    const xScale = d3.scaleLinear()
+      .domain([40, 100])
+      .range([0, innerWidth])
+      .nice();
+    const yScale = d3.scaleLinear()
+      .domain([20, 180])
+      .range([innerHeight, 0])
+      .nice();
+    const compute = d3.interpolate('lightgreen', 'black')
+    const linear = d3.scaleLinear().domain([0.46, 1]).range([0, 1])
+  	const myColor = d3.scaleLinear().domain([0.3, 1])
+    	.range(["black", "green"]);
+    const g = svg.append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
+    const xAxis = d3.axisBottom(xScale)
+      .tickSize(-innerHeight)
+      .tickPadding(15);
+    const yAxis = d3.axisLeft(yScale)
+      .tickSize(-innerWidth)
+      .tickPadding(10);
+    const yAxisG = g.append('g').call(yAxis);
+    yAxisG.selectAll('.domain').remove();
+    yAxisG.append('text')
+        .attr('class', 'axis-label')
+        .attr('y', -93)
+        .attr('x', -innerHeight / 2)
+        .attr('fill', 'black')
+        .attr('transform', `rotate(-90)`)
+        .attr('text-anchor', 'middle')
+        .text(yAxisLabel);
+    const xAxisG = g.append('g').call(xAxis)
+      .attr('transform', `translate(0,${innerHeight})`);
+    xAxisG.select('.domain').remove();
+    xAxisG.append('text')
+        .attr('class', 'axis-label')
+        .attr('y', 75)
+        .attr('x', innerWidth / 2)
+        .attr('fill', 'black')
+        .text(xAxisLabel);
+    g.selectAll('circle').data(data_1)
+      .enter().append('circle')
+        .attr('cy', d => yScale(yValue_1(d)))
+        .attr('cx', d => xScale(xValue_1(d)))
+        .attr('r',  d => circleRadius)
+    		.attr('fill', d => compute(linear(rValue_1(d))));
+    g.append('text')
+        .attr('class', 'title')
+        .attr('y', -10)
+        .text(title);
+
+  var object_dataset = [
+    {cx: 43, cy: 450, text: `1995-1999`,no:"r1"},
+    {cx: 172, cy: 450, text: `2000-2004`,no:"r2"},
+    {cx: 301, cy: 450, text: `2005-2009`,no:"r3"},
+    {cx: 430, cy: 450, text: `2010-2014`,no:"r4"},
+    {cx: 559, cy: 450, text: `2015-2019`,no:"r5"},
+    ];
+
+  svg.selectAll('rect').data(object_dataset)
+    .enter().append('rect')
+      .attr('x', d => d.cx + 50)
+      .attr('y', d => d.cy - 30)
+      .attr('width', 86)
+      .attr('height', 50)
+      .attr('fill', 'lightgreen')
+      .attr('id', d => d.no);
+
+  svg.select("rect#r2").on("click",function(data_1){
+    svg.selectAll("rect").attr("fill","lightgreen")
+    svg.select("rect#r2").attr("fill","green")
+        svg.selectAll("circle").transition()
+        .duration(2000)
+        .attr('cy', d => yScale(yValue_2(d)))
+        .attr('cx', d => xScale(xValue_2(d)))
+        .attr('r',  d => circleRadius)
+        .attr('fill', "red")
+        .attr('fill', d => compute(linear(rValue_2(d))))})
+      ;
+          
+  svg.select("rect#r1").on("click",function(data_1){
+    svg.selectAll("rect").attr("fill","lightgreen")
+    svg.select("rect#r1").attr("fill","green")
+    svg.selectAll("circle").transition()
+    .duration(2000)
+    .attr('cy', d => yScale(yValue_1(d)))
+    .attr('cx', d => xScale(xValue_1(d)))
+    .attr('r',  d => circleRadius)
+    .attr('fill', "red")
+    .attr('fill', d => compute(linear(rValue_1(d))))})
+  ;
+          
+  svg.select("rect#r3").on("click",function(data_1){
+    svg.selectAll("rect").attr("fill","lightgreen")
+    svg.select("rect#r3").attr("fill","green")
+    svg.selectAll("circle").transition()
+    .duration(2000)
+    .attr('cy', d => yScale(yValue_3(d)))
+    .attr('cx', d => xScale(xValue_3(d)))
+    .attr('r',  d => circleRadius)
+    .attr('fill', "red")
+    .attr('fill', d => compute(linear(rValue_3(d))))})
+  ;
+
+  svg.select("rect#r4").on("click",function(data_1){
+    svg.selectAll("rect").attr("fill","lightgreen")
+    svg.select("rect#r4").attr("fill","green")
+    svg.selectAll("circle").transition()
+    .duration(2000)
+    .attr('cy', d => yScale(yValue_4(d)))
+    .attr('cx', d => xScale(xValue_4(d)))
+    .attr('r',  d => circleRadius)
+    .attr('fill', "red")
+    .attr('fill', d => compute(linear(rValue_4(d))))})
+  ;
+  
+  svg.select("rect#r5").on("click",function(data_1){
+    svg.selectAll("rect").attr("fill","lightgreen")
+    svg.select("rect#r5").attr("fill","green")
+    svg.selectAll("circle").transition()
+    .duration(2000)
+    .attr('cy', d => yScale(yValue_5(d)))
+    .attr('cx', d => xScale(xValue_5(d)))
+    .attr('r',  d => circleRadius)
+    .attr('fill', "red")
+    .attr('fill', d => compute(linear(rValue_5(d))))})
+  };
+
+  d3.csv('https://raw.githubusercontent.com/yaojiaye00/final5702/main/data_all.csv')
+    .then(data_1 => {
+      data_1.forEach(d => {
+        d.Score1 = +d.Score1;
+        d.educ1 = +d.educ1; //Currently need to manually update based on input 
+        d.emp1 = +d.emp1; //Same as above
+        d.Score2 = +d.Score2;
+        d.educ2 = +d.educ2; 
+        d.emp2 = +d.emp2; 
+        d.Score3 = +d.Score3;
+        d.educ3 = +d.educ3; 
+        d.emp3 = +d.emp3; 
+        d.Score4 = +d.Score4;
+        d.educ4 = +d.educ4; 
+        d.emp4 = +d.emp4; 
+        d.Score5 = +d.Score5;
+        d.educ5 = +d.educ5; 
+        d.emp5 = +d.emp5; 
+      });
+      render(data_1)
+    });
+
+  var object_dataset = [
+    {cx: 43, cy: 450, text: `1995-1999`,no:"r1"},
+    {cx: 172, cy: 450, text: `2000-2004`,no:"r2"},
+    {cx: 301, cy: 450, text: `2005-2009`,no:"r3"},
+    {cx: 430, cy: 450, text: `2010-2014`,no:"r4"},
+    {cx: 559, cy: 450, text: `2015-2019`,no:"r5"},
+    ];
+
+  svg.selectAll('text').data(object_dataset)
+    .enter().append('text')
+      .attr('x', d => d.cx + 90)
+      .attr('y', d => d.cy + 50)
+      .text(d => d.text)
+      .attr('fill', 'black')
+      .attr('text-anchor', 'middle');
+
+</script>
+
+
+The interactive plot above was built off a format provided by "Cars Scatter Plot" example from Vizhub (https://vizhub.com/curran/9247d4d42df74185980f7b1f7504dcc5).  
+  
+
+
+<!--chapter:end:06-interactive.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Conclusion
+
+For social rights:    
+1.In general, Iceland, Canada and New Zealand do well. No obvious gender discrimination in finance and freedom, but marked gender discrimination is found in social welfare these year.  
+2.World started to focus on solving the gender discrimination problem at around 1987. The gender discrimination decreased a lot during last 40 years. And in the law and welfare aspects, the discrimination moderated rapidly yet still exists.  
+3.GDP has no influence on the gender discrimination in social rights aspects while the location of the country will, to some extent, determine the gender discrimination condition in social rights aspect. Generally, the North America will have a higher scores in the majority of topics.  
+  
+For education:  
+1. There exists gender discrimination on education opportunities. Even in recent years, share of female graduates from different majors still have big differences.  
+2. The education level of women is correlated with both GDP and geographical factor. Countries with high GDP will highly likely to have more education resources and less children in rural area where education resources are more scarce. Countries in North and South America have high scores in female education level shows there may also geographical factor that correlates with gender discrimination on education.  
+  
+For employment:  
+1) There appears to be noticeable employment differences between genders in almost all of the countries sampled for the study. The differences observed stemmed from employment ratios and potentially career opportunities. There was only one case where a country had more females in upper/middle management than males, the others were all heavily skewed towards male.  
+2) over the past 30 years, the trends for gender equality in employment has been steadily getting better throughout the world, as suggested by growing Women Business and the Law index scores for every nation selected (though significant discrepancies between nations exist). As for regional or developmental effects on employment ratios, the trends appear unobservable or very weak at best.  
+3) There appears to be more correlation between GDP and employment ratios throughout the world, but if you subset to specific continents, an argument can be made that specific continents like Europe and Africa have correlated GDP and female/male labor force participation rates.  
+
+Some limitations:  
+1.Owing to the availability of the data, we only sampled 30 countries from different continents in the world. The analysis result may not be representative for the whole world.  
+2.The number of social rights questions asked by the dataset provider is not large enough (only 24), so the analysis result may be limited and only can reflect partial conditions of the worldwide social rights for women.  
+3.Maybe when more data are available, we can explore more about the same topic (analysis limitation).  
+4.The assignment of questions to topics is quite subjective. Maybe there are some better assignments for the questions to the topics.  
+
+<!--chapter:end:07-conclusion.Rmd-->
+
