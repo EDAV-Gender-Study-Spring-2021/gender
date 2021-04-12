@@ -98,7 +98,7 @@ df[13,7] <- NA
 df[21,5] <- NA
 ```
 
-```{r, echo = FALSE, fig.height = 15, fig.width = 15}
+```{r, echo = FALSE, fig.height = 10, fig.width = 10}
 library(mi)
 x <- missing_data.frame(df)
 image(x)
@@ -108,7 +108,7 @@ image(x)
 The above heatmap shows the missing value for the parallel coordinates in part 5.2. There are only two missing values in this data frame that has 30 rows and 7 columns. As all the data entries (except for country name and continent) are average scores across 25 years, the missing data here actually represents a 25 years data missing in our original data file. Thus, this heatmap implies that in the 30 countries we chose, there is one country have no data entry for education spend and one country has no data for expected school year in recent 25 years.
 
 ## Employment 
-```{r, echo = FALSE, fig.height = 15, fig.width = 15}
+```{r, echo = FALSE, fig.height = 10, fig.width = 10}
 #Vincent Figure 1
 defaultW <- getOption("warn") 
 options(warn = -1) 

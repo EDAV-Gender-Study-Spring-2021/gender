@@ -2,11 +2,11 @@
 
 By exploring the gender data, we want to analyze the gender discrepancies to answer the following questions:
 
-Question 1: How do social status of women compare to men in modern society from a variety of standpoints like social rights, education and employment?
+1) How do women's social status compare to men's social status in modern society from a variety of standpoints like social rights, education, and employment?
 
-Question 2: How has social status of women changed in the last few years regarding social rights, education and employment?
+2) How has women's social status changed in the last 30 years (years data is available for) regarding social rights, education, and employment?  
 
-Question 3: What are the differences and developments in social status of women between different countries in recent years? Does GDP (or other developmental/ geographical factors) have an influence on the changes? How to explain the status differences from the perspective of different countries?
+3) What are the differences and developments in women's social status between different countries in recent years? Does GDP (or other developmental / geographical factors) have an influence on equal rights. What are plausible explanations for gender discrepancies from the perspective of different countries?  
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,warning=FALSE,message = FALSE)
@@ -18,7 +18,7 @@ To discuss the social rights for women in the world these years.
 
 To explore the details about the social rights, the heatmap is a good choice. The y axis is ordered by the average scores of countries from high to low. The x axis is ordered by the average scores of the topics.
 
-```{r ,fig.width=12}
+```{r ,fig.width=12, fig.height = 12}
 library(tidyverse)
 library(ggplot2)
 library(ggthemes)
@@ -58,11 +58,11 @@ ggplot(data_e,aes(y=fct_reorder(Country,Tot_S_Y),x=fct_rev(fct_reorder(Category,
         axis.ticks = element_blank())
 ```
 
-We can see that the Iceland, the Canada and the New Zealand actually both achieve 1 in 6 topics, meaning that no gender discrimination in the social rights aspect in these three countries. Compare to that, The Niger has no score 1 in every topic, meaning there is still some gender discrimination in these aspects. Especially for the marriage, the score is close to 0, meaning men have more power to dominate the marriage in Niger. Another points should be paid attention to is that the job have a very low score in Ukraine while other scores are quite high, meaning that only in the workplace, the women will be treated differently as men in Ukraine.
+We can see that Iceland, Canada and New Zealand actually both achieved a score of 1 in 6 topics, meaning that there are no gender discrimination in the social rights aspect in these three countries. Compared to that, Niger has no score of 1 in every topic, meaning there is still some significant gender discrepancies there, especially for marriage where the score is close to 0. This means men have more power to dominate the marriage in Niger. Another point worth paying attention to is that jobs also have a very low score in Ukraine while other scores are quite high, meaning that women face more significant gender discrimination in the workplace as opposed to other social aspects there.
 
-Moreover, there are some countries have really similar conditions in different aspects for the gender discrimination. For example, Canada and Iceland and New Zealand, United States and Mexico, Nicaragua and Lithuania, Zimbabwe and El Salvador, Fiji and Colombia, China and Belarus, Russian Federation and Papua New Guinea. We will discuss what kinds of factor contributes to the distribution of the scores like this.
+Moreover, there are some countries have really similar social rights conditions for women. For example, Canada and Iceland and New Zealand, United States and Mexico, Nicaragua and Lithuania, Zimbabwe and El Salvador, Fiji and Colombia, China and Belarus, Russian Federation and Papua New Guinea. We will discuss what kinds of factor contributes to the distribution of the scores like this.
 
-Generally, women tend to have the same rights as the men in the finance aspect since only 1 country did not achieve 1 in finance. For the freedom part, only 4 countries did not achieve 1, meaning that the majorities of the countries do not keep women from doing something which men can do. However, in terms of the social welfare, the women tend to have a worse welfare guaranteed compared to men in these years with only 5 countries achieving score 1. As for law, marriage and job, different countries have different conditions and the results did not have a strong inclination to 1 or 0.
+Generally, women tend to have the same rights as the men in the finance aspect since only 1 country did not achieve 1 in finance. For the freedom part, only 4 countries did not achieve 1, meaning that the majority of the countries do not keep women from doing something which men can do. However, in terms of the social welfare, the women tend to have a worse welfare guaranteed compared to men in these years with only 5 countries achieving score 1. As for law, marriage and job, different countries have a wide variety of different conditions.
 
 ```{r fig.width=12}
 
@@ -79,7 +79,7 @@ ggplot(data_e, aes(Score)) +
 #situation -> heatmap #6 aspects vs 25 countries, scores
 ```
 
-Since the heatmap do not show the detailed score distribution of topics clearly. We can explore the general distribution more carefully by looking at the bar charts. We can see that for the finance part ad freedom part, the majorities of countries has 1. For the job aspect, We can see that except the score 1 and the outlier laying between 0.2 to 0.3, there are two clusters of countries distributed in the range of 0.4-0.5 and 0.7-0.8, meaning there is a gap (0.5-0.7) between the countries for the women social status in the job aspect. For law, we can see the range of the clusters are nested in the right corner except the outlier laying between 0.3 to 0.4, meaning the general scores are high in the law aspect and the difference of the condition are small between the countries. For marriage, only 3 countries are outliers, and the majority countries are landed in score 1 with approximately 7 countries having 0.6-0.7 scores. For welfare, we can see there are mainly 3 clusters, for 0.4-0.5, 0.7-0.8, 0.9-1.0 respectively. And nearly halves are in 0.4-0.5 and another halves are in 0.7-0.8. It shows that the general condition in the world is that the women have worse welfare compared to men. And there is a treatment gap (0.5-0.7) between the countries in two clusters.
+Since the heatmap do not show the detailed score distribution of topics clearly. We can explore the general distribution more carefully by looking at the bar charts. We can see that for the finance part ad freedom part, the majorities of countries has a score of 1. For the job aspect, we can see that except for the score 1 and the outlier laying between 0.2 to 0.3, there are two clusters of countries distributed in the range of 0.4-0.5 and 0.7-0.8, meaning there is a gap (0.5-0.7) between the countries for the women social status in the job aspect. For law, we can see the range of the clusters are nested in the right corner except the outlier laying between 0.3 to 0.4, meaning the general scores are high in the law aspect and the difference of the condition are small between the countries. For marriage, only 3 countries are outliers, and the majority countries are landed in score 1 with approximately 7 countries having 0.6-0.7 scores. For welfare, we can see there are mainly 3 clusters, for 0.4-0.5, 0.7-0.8, 0.9-1.0 respectively. And nearly halves are in 0.4-0.5 and another halves are in 0.7-0.8. It shows that the general condition in the world is that the women have worse welfare compared to men. And there is a treatment gap (0.5-0.7) between the countries in two clusters.
 
 ```{r,fig.width=12}
 #change -> curves
@@ -97,7 +97,7 @@ ggplot(data_f, aes(x=Year, y= Score, group = Category, color = Category)) +
 The labels are ordered according to the average score of 30 countries in the 2020.
 
 We can see the general trend of the women social rights in different topics from the curve plot. 
-In the recent 40 years, the general trend for the women rights is increasing for every topic. And the increase started formally at around 1987-1990 for every topic. The law curve grew most rapidly from around 0.56 to 0.86, exceeding the score of job in 2020. Although the welfare score was low at the beginning, it also grew very rapidly from around 0.45 to 0.68. The growth pattern of the finance and freedom are similar, so we guess that they are somehow correlated, so do the job and marriage. Therefore, the gender discrimination problem is disappearing and it is most obvious in the welfare and law aspects.
+In the recent 40 years, the general trend for the women rights is increasing for every topic. And the increase started formally at around 1987-1990 for every topic. The law curve grew most rapidly from around 0.56 to 0.86, exceeding the score of job in 2020. Although the welfare score was low at the beginning, it also grew very rapidly from around 0.45 to 0.68. The growth pattern of the finance and freedom are similar, so we hypothesize that they are somehow correlated. Job and marriage seems to follow a similar trend to finance and freedom. Therefore, the gender discrimination problem is disappearing and it is most obvious in the welfare and law aspects.
 
 
 ```{r fig.width=12}
@@ -123,14 +123,11 @@ parcoords(data_6,
 
 ```
 
-(The font size in the interactive parallel coordinates can not be changed. We tried to make the figure large so that it will be clearer.)
+Since we have more variations in score for job, welfare, marriage and law aspects. We will only explore what potential factors influenced these variations.
 
-Since we have more variations about the score in job, welfare, marriage and law aspects. We will only explore what potential factors influenced these variations.
-
-Also, since some countries’ GDP are extremely high, making other countries’ GDP hard to see in the parallel coordinates, We just used the log to scale the GDP, which will not influence the absolute rank of the GDP. 
+Also, since some countries’ GDP are extremely high, making other countries’ GDP hard to see in the parallel coordinates, We used the log to scale the GDP, which will not influence the absolute rank of the GDP. 
 
 We can drag the GDP or Continent coordinates to see the correlation between the GDP or Continent and other factors we are interested in. And also we can select the range of the coordinates from top to bottom to see how the gender discrimination condition will vary when the GDP is high or the Continent is specified. 
-
 
 The key findings in this part is following:
 
@@ -141,13 +138,13 @@ The key findings in this part is following:
 3. Countries in South America and Asia will have a lower score in law while the countries in North America will have a higher score in law. Other continents have various scores, showing no obvious trend.
 
 4. Countries in North America, Europe and Oceania will have a higher score in marriage. Other continents have various scores, showing no obvious trend.
+
 5. Countries in Africa will have a lower score in welfare. Other continents have various scores, showing no obvious trend.
 
 It is quite surprised that the GDP has no influence on the gender discrimination in the social rights aspect but the geographic position will influence it. Maybe the cultural reasons instead of the financial reasons will dominate the gender discrimination problem more. It quite makes sense. Although in these years we focus on solving the discrimination, it is quite hard to wipe it out since the cultural stereotypes will give us a preconception about the gender and then influence our action and decisions subconsciously.
 
 
 ## Education
-
 
 ```{r echo=FALSE}
 library(dplyr)
@@ -186,7 +183,7 @@ df_1 <- data.frame(Gender, educ, proportion)
 ```
 
 
-```{r}
+```{r, fig.width = 12, fig.height = 12}
 order <- c("Primary", "Lower secondary", "Post secondary")
 ggplot(df_1, aes(factor(educ, levels = order), proportion, fill = Gender)) + 
   geom_bar(stat="identity", position = "dodge") +
@@ -197,11 +194,11 @@ ggplot(df_1, aes(factor(educ, levels = order), proportion, fill = Gender)) +
   theme_grey(16)
 ```
 
-First, we want to focus on the difference between female and male in education status, thus using a bar plot is a good choice as it clearly shows the differences between these two groups in each category. This bar plot shows the proportion in female and male population over 25 years old based on education levels they at least complete. I divide the education levels into three categories: primary(grade 1-6), lower secondary(grade 7-12) and post secondary(all education after high school). In order to reduce the influences of missing values, I take the average of 30 countries in our sample during the recent 10 years. Thus this plot shows the overall education status in female and male population instead of focusing on a specific location or a specific year. 
+First, we want to focus on the difference between female and male in education status, thus using a bar plot is a good choice as it clearly shows the differences between these two groups in each category. This bar plot shows the proportion in female and male population over 25 years old based on education levels they at least complete. We divided the education levels into three categories: primary(grade 1-6), lower secondary(grade 7-12) and post secondary(all education after high school). In order to reduce the influences of missing values, We took the average of 30 countries in our sample during the recent 10 years. Thus this plot shows the overall education status in female and male population instead of focusing on a specific location or a specific year. 
 
-By observing the plot, the proportion decreases for both female and male population as the education level becomes higher. Over 80 percent female and male complete at least a primary level education, and over 60 percent of each population complete at least the lower secondary, while only less than 30 percent complete the post secondary education. This observation is consistent with our common sense: there will be less proportion of people in higher education. 
+By observing the plot, the proportion decreases for both female and male population as the education level becomes higher. Over 80 percent female and male completed at least a primary level education, and over 60 percent of each population completed at least the lower secondary, while only less than 30 percent completed the post secondary education. This observation is consistent with our common sense: there will be less proportion of people in higher education. 
 
-Moreover,  the data of female and male groups tend to have small difference in all three education levels. In the first two categories, primary and lower education, male population shows higher proportion of people complete this education level than female population, whereas in the last category, the plot shows there are higher proportion of female who graduates from a post secondary school than males. If we look at the scale of difference in the first two group, the difference in the lower secondary is smaller than the difference in primary. Thus, based on these two observations, we find that males tend to have more opportunities to take a basic level education than females. Also, among the population that complete the previous level of education, relative more females complete the next level education than males.
+Moreover, the data of female and male groups tend to have small difference in all three education levels. In the first two categories, primary and lower education, male population showed higher proportion of people completing this education level than female population, whereas in the last category, the plot showed there are higher proportion of female who graduated from a post secondary school than males. If we look at the scale of difference in the first two group, the difference in the lower secondary is smaller than the difference in primary. Thus, based on these two observations, we find that males tend to have more opportunities to take a basic level education than females. Also, among the population that completed the previous level of education, relative more females complete the next level education than males.
 
 
 
@@ -253,7 +250,7 @@ ggplot(data_q2, aes(variable, value, group=factor(Indicator.Code), color=factor(
 ```
 
 
-This line plot shows us how the percentage of female graduates in different study areas changed over the 20 years (1998 - 2018). The reason to not include the year 2019 and 2020 is because of the high number of missing values in these two years. As we can see, there are big differences between different majors. For example, there are always more than 70 percent of female graduates from Education and only about 30 percent of female graduates from STEM majors. The different study area also shows various trends. We see slightly decreasing trends in Education, Art & Humanities and STEM majors, and overall increasing in Business & Law and Agriculture & Forest. The percentage of female graduates in Services increased a lot before 2005 and later decreased in recent years, but overall, it still shows an increasing trend. Based on the plot, there seems to still have some gender inequalities among the different study areas. 
+This line plot shows us how the percentage of female graduates in different study areas changed over the 20 years (1998 - 2018). The reason to not include the year 2019 and 2020 is because of the high number of missing values in these two years. As we can see, there are big differences between different majors. For example, there are always more than 70 percent of female graduates from Education and only about 30 percent of female graduates from STEM majors. The different study area also shows various trends. We see slightly decreasing trends in Education, Art & Humanities and STEM majors, and overall increasing in Business & Law and Agriculture & Forest. The percentage of female graduates in Services increased a lot before 2005 and later decreased in recent years, but overall, it still shows an increasing trend. Based on the plot, there seems to still have some gender differences among the various subject areas. 
 
 
 
@@ -336,7 +333,7 @@ dfj<-df[!(df$ï..Country.Name=="Japan" | df$ï..Country.Name == "Nigeria"),]
 ```
 
 
-```{r}
+```{r, fig.width = 12, fig.height = 12}
 parcoords(dfj[2:7],
           rownames = F,
           brushMode = "1D-axes",
@@ -353,7 +350,7 @@ parcoords(dfj[2:7],
           )
 ```
 
-In this plot, we mainly focus on the factors related to women social status. The above parallel coordinates plot shows the relation between 6 parameters by using the data from 30 countries, 5 in each continent, after taking average of recent 25 years. These parameters are continent, GDP, fertility rate, government expenditure on education (% of GDP), female rural population (percentage) and expected schooling year for female. 
+In this plot, we mainly focused on the factors related to women social status. The above parallel coordinates plot shows the relation between 6 parameters by using the data from 30 countries, 5 in each continent, after taking average of recent 25 years. These parameters are continent, GDP, fertility rate, government expenditure on education (% of GDP), female rural population (percentage) and expected schooling year for female. 
 
 Here are some observations from this plot:
 
@@ -370,7 +367,7 @@ Here are some observations from this plot:
 From these observations, we can identify there is a correlation between these variables. Women education status is correlated with geography, national wealth, fertility rate, rural population and government expenditure on education. For countries with higher income, the education expenditure is also likely to be higher as the data is percentage based on the total GDP. For countries with relative low GDP, especially in Africa, the fertility rates and rural population are both tend to be higher. In this case, the education resources are limited by both the economic factor and the children population. Moreover, women with higher educational level are likely to delay the age of getting marriage and giving birth, this can also explained by the correlation between low fertility rate and high expected female school year.
 
 ## Employment
-```{r, echo = FALSE, fig.height = 15, fig.width = 15}
+```{r, echo = FALSE, fig.height = 10, fig.width = 10}
 #Vincent Figure 1
 
 packages = c('tidyverse', 'dplyr', 'tidyr')
@@ -455,7 +452,7 @@ ggplot(emp_data, aes(Mean,
   theme_dotplot
 ```
 The figure above for the average employment ratio by sex between 2010-2019 is ordered in descending order by male employment ratio. The purpose of this ordering is to list countries with high male employment ratios first and visualize whether or not the female employment ratios match up. Out of the 30 countries selected for the study, it is very telling that a lower female employment ratio fairly universal. The actual differences between male/female employment ratio varies drastically by country. From the figure above, it is clear that the issue is much more pronounced in countries like Samoa, Mexico, and Malaysia (among others) as opposed to countries like Canada, Congo, Rep., and Iceland. Whether or not the differences between the ratio of male/female employment varies by continent is explored in another figure below. 
-```{r, echo = FALSE, fig.height = 15, fig.width = 15}
+```{r, echo = FALSE, fig.height = 10, fig.width = 10}
 #Vincent Figure 2
 
 #Employment in upper/middle management 
@@ -654,7 +651,7 @@ The Women, Business and the Law Score is an index that analyzes laws and regulat
   
 The figure above displays the Women, Business and the Law index scores over a 30-year period faceted by continent with 5 countries per continent. The figure indicates a universal trend upwards in the index score over nearly all countries in every continent, although the degree of improvement varies drastically. For example, countries like the Congo, Rep. saw no improvement since 1900 and Papua New Guinea saw very marginal improvements, whereas countries like Brazil and Lithuania saw drastic improvements over the same time frame. It is very uncommon for the index score to go downwards once it has gone up, although it has happened on occasions like in 2004 for Lithuania, 2014 in Ukraine, and 2008 in China. A significant marker for gender inequality in employment is that only 2 of the 30 selected countries ever achieved a score of 100, signifying equal legal rights with men in the measured areas of the index. Although women’s legal rights in the eight indicator areas have improved worldwide since 1990, there are very few countries where equality is achieved as of now. 
 
-```{r, echo = FALSE, fig.height = 15, fig.width = 15}
+```{r, echo = FALSE, fig.height = 10, fig.width = 10}
 #Vincent Figure 4
 
 packages = c('tidyverse', 'dplyr', 'grid', 'gridExtra', 'scales', 'patchwork')

@@ -1,12 +1,14 @@
 # Interactive component
 
-This Interactive part shows the general relationship and the general trend of education, employment and social rights of women in different countries during last 25 years.
+This interactive part shows the general relationship and the general trend of education, employment and social rights of women in different countries during last 25 years.
 
-The social rights used the values of average score of 6 aspects mentioned above (showed in color, with lightgreen representing smaller values and black representing larger values). The employment used the values of employment ratio in percentage (showed in x axis). The education used the primary school enrollment rate of women (%)(showed in y axis).
+The social rights used the values of average score of 6 aspects mentioned above (showed in color, with lightgreen representing smaller values and black representing larger values). Darker circles represent higher equality in social rights. The employment used the values of employment ratio in percentage (showed in x axis). The education used the primary school enrollment rate of women (%)(showed in y axis).
 
 Each point represents one country we sampled.
 
-Users can click the lightgreen button which represents the year range of the statistics and see how the statistics for each country change and whether the different factors change in the similar direction.
+Users can click the light-green buttons which represents the year range of the statistics and see how the statistics for each country change and whether the different factors change in the similar direction.
+
+This interactive portion shows the animation of changes that have happened in the past 25 years regarding social rights, education, and employment for all 30 countries simultaneously, something a static plot will struggle to present.
 
 <script src="https://d3js.org/d3.v6.js"></script>
 <svg width="688" height="500"></svg>
