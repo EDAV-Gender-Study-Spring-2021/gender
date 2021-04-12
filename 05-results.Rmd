@@ -243,6 +243,14 @@ data_q2$Indicator.Code = fct_reorder2(data_q2$Indicator.Code, data_q2$variable, 
 ```
 
 ```{r fig.width=12}
+data_q2 <- data_q2 %>% mutate_if(is.factor, funs(case_when( 
+    . == "SE.TER.GRAD.FE.SI.ZS" ~ "STEM",
+    . == "UIS.FGP.5T8.F400" ~ "Business, Administration and Law",
+    . == "SE.TER.GRAD.FE.ED.ZS" ~ "Education",
+    . == "SE.TER.GRAD.FE.SV.ZS" ~ "Services",
+    . == "SE.TER.GRAD.FE.HU.ZS" ~ "Arts and Humanities",
+    . == "SE.TER.GRAD.FE.AG.ZS" ~ "Agriculture, Forestry and Fisheries", T ~ as.character(.))))
+
 ggplot(data_q2, aes(variable, value, group=factor(Indicator.Code), color=factor(Indicator.Code))) +  geom_line() +
   ggtitle("Female share of graduates from different study area") +
   labs(x = "Year", y = "Percent") + 
@@ -258,86 +266,13 @@ This line plot shows us how the percentage of female graduates in different stud
 
 
 ```{r}
-data_q3 <- country %>% 
-  filter(Indicator.Code == "SP.DYN.TFRT.IN" | Indicator.Code == "NY.GDP.MKTP.CD" |  Indicator.Code == "SE.SCH.LIFE.FE" |  Indicator.Code == "SE.XPD.TOTL.GD.ZS" |  Indicator.Code == "SP.RUR.TOTL.FE.ZS")
-```
-
-```{r}
-data_q3 <- data_q3 %>% mutate_if(is.factor, funs(case_when( 
-    . == "SP.DYN.TFRT.IN" ~ "FertilityRate",
-    . == "NY.GDP.MKTP.CD" ~ "GDP(log in billion)",
-    . == "SE.SCH.LIFE.FE" ~ "ExpSchoolYear",
-    . == "SE.XPD.TOTL.GD.ZS" ~ "EducationSpend",
-    . == "SP.RUR.TOTL.FE.ZS" ~ "RuralPop",
-    . == "CAN" ~ "North America", 
-    . == "USA" ~ "North America",
-    . == "MEX" ~ "North America",
-    . == "NIC" ~ "North America",
-    . == "SLV" ~ "North America",
-    . == "COL" ~ "South America",
-    . == "BRA" ~ "South America",
-    . == "CHL" ~ "South America",
-    . == "ARG" ~ "South America",
-    . == "URY" ~ "South America",
-    . == "RUS" ~ "Europe",
-    . == "ISL" ~ "Europe",
-    . == "UKR" ~ "Europe",
-    . == "BLR" ~ "Europe",
-    . == "LTU" ~ "Europe",
-    . == "CHN" ~ "Asia",
-    . == "JPN" ~ "Asia",
-    . == "KOR" ~ "Asia",
-    . == "THA" ~ "Asia",
-    . == "MYS" ~ "Asia",
-    . == "COG" ~ "Africa",
-    . == "ZWE" ~ "Africa",
-    . == "TZA" ~ "Africa",
-    . == "NER" ~ "Africa",
-    . == "NGA" ~ "Africa",
-    . == "AUS" ~ "Oceania",
-    . == "NZL" ~ "Oceania",
-    . == "PNG" ~ "Oceania",
-    . == "WSM" ~ "Oceania",
-    . == "FJI" ~ "Oceania",
-    T ~ as.character(.))))
+file <- 'data/df_educ3.csv'
+df_educ3 <- read.csv(file)
 ```
 
 
 ```{r}
-df <- data_q3 %>% 
-  select(ï..Country.Name,Country.Code, Indicator.Code, c(40:64)) %>%
-  group_by(ï..Country.Name, Country.Code, Indicator.Code)%>%
-  summarise_if(is.numeric, mean, na.rm = TRUE)
-```
-
-
-
-```{r}
-value <- rowMeans(df[4:28],  na.rm = TRUE)
-df$value <- value
-```
-
-```{r}
-df <- dcast(df, ï..Country.Name + Country.Code ~ Indicator.Code)
-colnames(df)[colnames(df) == "Country.Code"] <- "Continent"
-```
-
-```{r}
-df <- df[ , c(1, 2, 6, 5, 3, 7, 4)] 
-```
-
-
-```{r}
-df[,3] <- log(df[,3]/1000000000)
-```
-
-```{r}
-dfj<-df[!(df$ï..Country.Name=="Japan" | df$ï..Country.Name == "Nigeria"),]
-```
-
-
-```{r, fig.width = 12, fig.height = 12}
-parcoords(dfj[2:7],
+parcoords(df_educ3[2:7],
           rownames = F,
           brushMode = "1D-axes",
           reorderable = T,
@@ -631,6 +566,7 @@ na <- ggplot(data = df$'North America',
   theme_grey(16) +
   ylim(30, 100) +
   scale_colour_manual(values = cbPalette) +
+  scale_x_discrete(breaks = seq.default(1990, 2019, 5)) +
   theme(axis.text.x = element_text(angle = 80, hjust = 1),
         legend.title = element_blank())
 
