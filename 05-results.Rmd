@@ -218,17 +218,6 @@ data_q2 <- data_q2 %>%
   summarise_if(is.numeric, mean, na.rm = TRUE)
 ```
 
-
-```{r}
-data_q2 <- data_q2 %>% mutate_if(is.factor, funs(case_when( 
-    . == "SE.TER.GRAD.FE.SI.ZS" ~ "STEM",
-    . == "UIS.FGP.5T8.F400" ~ "Business, Administration and Law",
-    . == "SE.TER.GRAD.FE.ED.ZS" ~ "Education",
-    . == "SE.TER.GRAD.FE.SV.ZS" ~ "Services",
-    . == "SE.TER.GRAD.FE.HU.ZS" ~ "Arts and Humanities",
-    . == "SE.TER.GRAD.FE.AG.ZS" ~ "Agriculture, Forestry and Fisheries", T ~ as.character(.))))
-```
-
 ```{r}
 colnames(data_q2)<-gsub("X","",colnames(data_q2))
 ```
@@ -236,10 +225,6 @@ colnames(data_q2)<-gsub("X","",colnames(data_q2))
 ```{r}
 library(reshape2)
 data_q2 <- melt(data_q2)
-```
-
-```{r}
-data_q2$Indicator.Code = fct_reorder2(data_q2$Indicator.Code, data_q2$variable, data_q2$value)
 ```
 
 ```{r fig.width=12}
@@ -251,13 +236,21 @@ data_q2 <- data_q2 %>% mutate_if(is.factor, funs(case_when(
     . == "SE.TER.GRAD.FE.HU.ZS" ~ "Arts and Humanities",
     . == "SE.TER.GRAD.FE.AG.ZS" ~ "Agriculture, Forestry and Fisheries", T ~ as.character(.))))
 
+data_q2$Indicator.Code = fct_reorder2(data_q2$Indicator.Code, data_q2$variable, data_q2$value)
+
 ggplot(data_q2, aes(variable, value, group=factor(Indicator.Code), color=factor(Indicator.Code))) +  geom_line() +
   ggtitle("Female share of graduates from different study area") +
   labs(x = "Year", y = "Percent") + 
   theme_grey(16) +
   scale_x_discrete(breaks = seq(2000, 2019, 3)) +
   theme(legend.title = element_blank()) + 
-  scale_color_colorblind()
+  scale_color_colorblind(labels = c('Education',
+                                    'Arts and Humanities',
+                                    'Business, Administration and Law',
+                                    'Services',
+                                    'Agriculture, Forestry and Fisheries',
+                                    'STEM'
+                                    ))
 ```
 
 
