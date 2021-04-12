@@ -6,7 +6,7 @@ social-rights
 education
 employment
 results
-social
+social-rights-1
 education-1
 employment-1
 interactive-component
