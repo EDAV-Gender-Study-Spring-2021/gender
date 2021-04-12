@@ -105,7 +105,7 @@ image(x)
 ```
 
 
-The above heatmap shows the missing value for the parallel coordinates in part 5.2. There are only two missing values in this data frame that has 30 rows and 7 columns. As all the data entries (except for country name and continent) are average scores across 25 years, the missing data here actually represents a 25 years data missing in our original data file. Thus, this heatmap implies that in the 30 countries we chose, there is one country have no data entry for education spend and one country has no data for expected school year in recent 25 years.
+The above heatmap shows the missing value for the parallel coordinates in part 5.2. There are only three missing values in this data frame that has 30 rows and 7 columns. As all the data entries (except for country name and continent) are average scores across 25 years, the missing data here actually represents a 25 years data missing in our original data file. Thus, this heatmap implies that in the 30 countries we chose, there is one country have no data entry for education spend, one country has no data for expected school year, and one with missing value for GDP in the recent 25 years.
 
 ## Employment 
 ```{r, echo = FALSE, fig.height = 10, fig.width = 10}
