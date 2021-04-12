@@ -559,7 +559,8 @@ na <- ggplot(data = df$'North America',
   theme_grey(16) +
   ylim(30, 100) +
   scale_colour_manual(values = cbPalette) +
-  scale_x_discrete(breaks = seq.default(1990, 2019, 5))
+  scale_x_discrete(breaks = seq.default(1990, 2019, 5)) +
+  theme(legend.title = element_blank())
 
 sa <- na %+% df$'South America'
 eu <- na %+% df$'Europe'
