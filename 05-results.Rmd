@@ -76,7 +76,9 @@ ggplot(data_e, aes(Score)) +
   facet_wrap(~ Category)+
   ggtitle("The Distribution of Social Right Score") +
   scale_x_continuous(breaks=seq(0,1,0.1))+
-  theme_bw(base_size = 20) 
+  theme_bw(base_size = 20) +
+  theme(axis.text.x = element_text(angle = 80, hjust = 1),
+        legend.title = element_blank())
 
 #situation -> heatmap #6 aspects vs 25 countries, scores
 ```
