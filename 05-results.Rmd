@@ -551,7 +551,7 @@ cbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73",
                "#D55E00", "#0072B2", "#F0E442", "#CC79A7")
 
 na <- ggplot(data = df$'North America', 
-             aes(x = year, y = index_score, color = ..Country.Name, group = Country.Code)) + 
+             aes(x = year, y = index_score, color = fct_reorder2(..Country.Name,year, index_score), group = Country.Code)) +
   geom_point() +
   geom_line() +
   facet_wrap(~region, ncol = 1) +
@@ -559,8 +559,8 @@ na <- ggplot(data = df$'North America',
   theme_grey(16) +
   ylim(30, 100) +
   scale_colour_manual(values = cbPalette) +
-  scale_x_discrete(breaks = seq.default(1990, 2019, 5)) +
-  theme(legend.title = element_blank())
+  theme(axis.text.x = element_text(angle = 80, hjust = 1),
+        legend.title = element_blank())
 
 sa <- na %+% df$'South America'
 eu <- na %+% df$'Europe'
