@@ -51,10 +51,6 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<link href="libs/parallel-coordinates-2.1.8/parcoords.css" rel="stylesheet" />
-<script src="libs/parcoords-binding-1.0.0/parcoords.js"></script>
-<script src="libs/d3-5.16.0/d3.min.js"></script>
 
 
 
@@ -118,8 +114,8 @@
 <h2><span class="header-section-number">4.2</span> Education</h2>
 <pre><code>## NOTE: The following pairs of variables appear to have the same missingness pattern.
 ##  Please verify whether they are in fact logically distinct variables.
-##      [,1]                [,2]            
-## [1,] &quot;SE.XPD.TOTL.GD.ZS&quot; &quot;NY.GDP.MKTP.CD&quot;</code></pre>
+##      [,1]             [,2]     
+## [1,] &quot;EducationSpend&quot; &quot;GDP_log&quot;</code></pre>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="960" /></p>
 <p>The above heatmap shows the missing value for the parallel coordinates in part 5.2. There are only three missing values in this data frame that has 30 rows and 7 columns. As all the data entries (except for country name and continent) are average scores across 25 years, the missing data here actually represents a 25 years data missing in our original data file. Thus, this heatmap implies that in the 30 countries we chose, there is one country have no data entry for education spend, one country has no data for expected school year, and one with missing value for GDP in the recent 25 years.</p>
 </div>

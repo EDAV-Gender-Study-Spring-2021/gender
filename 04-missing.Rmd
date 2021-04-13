@@ -96,6 +96,15 @@ colnames(df)[colnames(df) == "Country.Code"] <- "Continent"
 df <- df[ , c(1, 2, 6, 5, 3, 7, 4)] 
 df[13,7] <- NA
 df[21,5] <- NA
+
+df <- df %>% 
+  rename(
+    FertilityRate = SP.DYN.TFRT.IN,
+    GDP_log = NY.GDP.MKTP.CD,
+    ExpSchoolYear = SE.SCH.LIFE.FE,
+    EducationSpend = SE.XPD.TOTL.GD.ZS,
+    RuralPop = SP.RUR.TOTL.FE.ZS
+    )
 ```
 
 ```{r, echo = FALSE, fig.height = 10, fig.width = 10}
