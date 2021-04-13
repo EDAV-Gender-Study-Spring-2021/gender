@@ -8,6 +8,7 @@ In 2016, the American presidential election became the most heated topic around 
 
 Owing to the data availability for countries, we used only 30 countries with high quality data to do the analysis, each country was randomly chosen from 6 continents. We hope the situations in these countries can somehow reflect the gender discrepancies as a whole around the world.
 
+The like to the book: https://edav-gender-study-spring-2021.github.io/gender/
 *This repo was initially generated from a bookdown template available here: https://github.com/jtr13/EDAVtemplate.*	
 
 
